@@ -76,6 +76,9 @@
     <ClInclude Include="..\..\Common\include\Exceptions\GenericException.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\SerializationUtils.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\Serializeable.hxx" />
+    <ClInclude Include="..\..\Common\include\Serialization\SerializeableContainerBase.hxx" />
+    <ClInclude Include="..\..\Common\include\Serialization\SerializeableList.hxx" />
+    <ClInclude Include="..\..\Common\include\Serialization\SerializeableVector.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\SerializeActionType.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\Serializer.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\TypeConverters.hxx" />

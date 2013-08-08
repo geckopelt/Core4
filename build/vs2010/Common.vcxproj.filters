@@ -96,6 +96,15 @@
     <ClInclude Include="..\..\Common\include\Serialization\Serializer.hxx">
       <Filter>include\Serialization</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\SerializeableVector.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\SerializeableList.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\SerializeableContainerBase.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx">

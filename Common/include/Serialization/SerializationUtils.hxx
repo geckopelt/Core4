@@ -31,10 +31,10 @@
 #define C4_SERIALIZE_CHILD(what, tagName) \
     { \
         TiXmlElement * child(0); \
-        if (action == Store && (what).serializeable()) \
+        if (action == Serialize && !(what).skipSerialization()) \
             child = static_cast<TiXmlElement*>(element.InsertEndChild(TiXmlElement(tagName))); \
         else \
             child = element.FirstChildElement(tagName); \
-        ACTS_CHECK(NULL != child, "Child element to serialize is NULL"); \
-        (what).serialize(*child, action); \
+        CORE4_CHECK(NULL != child, "Child element to serialize is NULL"); \
+        (what).perform(*child, action); \
     }

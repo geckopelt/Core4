@@ -58,10 +58,16 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <LinkStatus>false</LinkStatus>
     </Link>
     <PostBuildEvent>
       <Command>$(TargetPath)</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
