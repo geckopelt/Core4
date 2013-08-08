@@ -1,0 +1,14 @@
+Build environment setup
+-----------------------------
+Build relies on following environment variables:
+
+CORE4_ROOT: root directory for all the Core4 stuff
+CORE4_DEST_LIB: destination path for all the static libraries
+CORE4_DEST_TEMP: destination path for all the temporary files
+CORE4_DEST_BIN: destination for all the executable and dll/shared file libraries
+CORE4_DEST_DISTRIB: destination path for distributives to build
+CORE4_DEST_TOOLS: a folder where Core4 own tools are built to/invoked from
+CORE4_DEST_DOCS: destination files for all the generated docs
+CORE4_3DPARTY: a folder where all the third-party libraries are located
+CORE4_DOXYGEN: full path to Doxygen executable
+CORE4_UPX: full path to UPX executable

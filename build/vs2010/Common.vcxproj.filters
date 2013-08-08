@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{08038867-8df3-4e97-9564-4815ca56b292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{9be4c837-97af-4c28-a623-83b6c727b348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils">
+      <UniqueIdentifier>{f7546b03-05ca-4eba-a1de-e8b2d2a53191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logging">
+      <UniqueIdentifier>{b8e49492-d035-4702-846d-9600f20a23bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Image">
+      <UniqueIdentifier>{a48ca074-183b-45ac-a1d9-8b15f8baf40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Compression">
+      <UniqueIdentifier>{c95ad2f4-9e91-4d67-b586-bbbf370e2f85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Compression">
+      <UniqueIdentifier>{d3782189-f185-4fcf-9680-8986fb4f6f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Image">
+      <UniqueIdentifier>{eb3ddf69-c581-4c4a-b2ae-83f961e242e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Logging">
+      <UniqueIdentifier>{a83192c6-7ec5-4e23-8979-289813f9b287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Utils">
+      <UniqueIdentifier>{f39feda5-493e-4baa-9246-2311868d3be3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Serialization">
+      <UniqueIdentifier>{931e6441-c859-4f9c-9983-de47cf12eddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Serialization">
+      <UniqueIdentifier>{c828c9d7-a414-422c-9ee5-dbf18d7269b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Exceptions">
+      <UniqueIdentifier>{4d86c641-a05e-4e9d-9bea-fdd1744447c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Exceptions">
+      <UniqueIdentifier>{e6dcd5df-e913-42ae-a3ac-a14c084c4179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Types">
+      <UniqueIdentifier>{ab2e2677-2829-474c-b386-75ef455ec2b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Types">
+      <UniqueIdentifier>{f2992ca5-6f08-4803-b5a7-091e0947b31f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\include\Utils\Factory.hxx">
+      <Filter>include\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Utils\Singleton.hxx">
+      <Filter>include\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Utils\Guards.hxx">
+      <Filter>include\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Exceptions\GenericException.hxx">
+      <Filter>include\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Utils\StringUtils.hxx">
+      <Filter>include\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\SerializeActionType.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\Serializeable.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\TypeConverters.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Types\Color.hxx">
+      <Filter>include\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Types\Vector2.hxx">
+      <Filter>include\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\SerializationUtils.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Types\PointBase.hxx">
+      <Filter>include\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Types\Point.hxx">
+      <Filter>include\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\XmlDocument.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Serialization\Serializer.hxx">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx">
+      <Filter>src\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Utils\StringUtils.cxx">
+      <Filter>src\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Types\Color.cxx">
+      <Filter>src\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Serialization\TypeConverters.cxx">
+      <Filter>src\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Serialization\Serializer.cxx">
+      <Filter>src\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Serialization\XmlDocument.cxx">
+      <Filter>src\Serialization</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
