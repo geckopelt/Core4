@@ -9,6 +9,7 @@ using namespace Core4;
 #include "StringUtilsTests.hxx"
 #include "TypeConverterTests.hxx"
 #include "SerializationTests.hxx"
+#include "CompressionUtilsTests.hxx"
 
 //----------------------------------------------------------------------------------------------------------
 int main(int argc, char* argv[])

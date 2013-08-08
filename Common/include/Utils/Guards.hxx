@@ -2,6 +2,8 @@
 /// @brief Useful guard macros
 
 #pragma once
+
+#include <string>
 #include "Exceptions/GenericException.hxx"
 
 /// @def CORE4_CHECK(condition, msg)
@@ -10,9 +12,11 @@
   if (!(condition)) \
   { \
     throw GenericException( \
+      std::string(#condition) + \
+      std::string(" at ") + \
       std::string(__FILE__) + \
       std::string(", ") + \
       std::string(__FUNCTION__) +\
       std::string("(): ") + \
-      msg); \
+      std::string(msg)); \
   }

@@ -105,6 +105,9 @@
     <ClInclude Include="..\..\Common\include\Serialization\SerializeableContainerBase.hxx">
       <Filter>include\Serialization</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\include\Compression\CompressionUtils.hxx">
+      <Filter>include\Compression</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx">
@@ -124,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\src\Serialization\XmlDocument.cxx">
       <Filter>src\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Compression\CompressionUtils.cxx">
+      <Filter>src\Compression</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

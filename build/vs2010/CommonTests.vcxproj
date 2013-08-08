@@ -56,8 +56,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <LinkStatus>false</LinkStatus>
     </Link>
@@ -81,8 +81,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>$(TargetPath)</Command>
@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Tests\Common\ComplexSerializeableClass.hxx" />
+    <ClInclude Include="..\..\Tests\Common\CompressionUtilsTests.hxx" />
     <ClInclude Include="..\..\Tests\Common\SerializationTests.hxx" />
     <ClInclude Include="..\..\Tests\Common\SimpleSerializeableClass.hxx" />
     <ClInclude Include="..\..\Tests\Common\StringUtilsTests.hxx" />

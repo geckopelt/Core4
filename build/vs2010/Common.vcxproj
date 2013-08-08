@@ -52,11 +52,14 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\Common\include;$(CORE4_3DPARTY)\TinyXML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\Common\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_3DPARTY)\zlib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_BIN)\$(Configuration)\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -64,15 +67,19 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\Common\include;$(CORE4_3DPARTY)\TinyXML\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\Common\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_3DPARTY)\zlib\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_BIN)\$(Configuration)\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Common\include\Compression\CompressionUtils.hxx" />
     <ClInclude Include="..\..\Common\include\Exceptions\GenericException.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\SerializationUtils.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\Serializeable.hxx" />
@@ -93,6 +100,7 @@
     <ClInclude Include="..\..\Common\include\Utils\StringUtils.hxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Common\src\Compression\CompressionUtils.cxx" />
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx" />
     <ClCompile Include="..\..\Common\src\Serialization\Serializer.cxx" />
     <ClCompile Include="..\..\Common\src\Serialization\TypeConverters.cxx" />
