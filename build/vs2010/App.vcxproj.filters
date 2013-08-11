@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{7d4f3871-d400-44d8-8554-9c63bfa714f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{f10446cb-3e03-4272-bdb4-26458f673129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\win32">
+      <UniqueIdentifier>{07c16862-59cc-44ef-805f-9de2928376dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\win32">
+      <UniqueIdentifier>{86bc613a-2ec2-4a2c-a8a6-c09ed523932e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\App\include\win32\Win32App.hxx">
+      <Filter>include\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\App\include\win32\Win32Common.hxx">
+      <Filter>include\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\App\include\BuildInfo.hxx">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\App\include\App.hxx">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\App\src\win32\Win32App.cxx">
+      <Filter>src\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\App\src\win32\WinMain.cxx">
+      <Filter>src\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\App\src\App.cxx">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -80,7 +80,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\include\Compression\CompressionUtils.hxx" />
+    <ClInclude Include="..\..\Common\include\Configuration\Configuration.hxx" />
+    <ClInclude Include="..\..\Common\include\Configuration\ConfigurationReader.hxx" />
     <ClInclude Include="..\..\Common\include\Exceptions\GenericException.hxx" />
+    <ClInclude Include="..\..\Common\include\Logging\ILogListener.hxx" />
+    <ClInclude Include="..\..\Common\include\Logging\Logger.hxx" />
+    <ClInclude Include="..\..\Common\include\Logging\LogHelpers.hxx" />
+    <ClInclude Include="..\..\Common\include\Logging\LogMessageFormatter.hxx" />
+    <ClInclude Include="..\..\Common\include\Logging\LogSection.hxx" />
+    <ClInclude Include="..\..\Common\include\Logging\StdOutLogger.hxx" />
+    <ClInclude Include="..\..\Common\include\Logging\TextFileLogger.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\SerializationUtils.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\Serializeable.hxx" />
     <ClInclude Include="..\..\Common\include\Serialization\SerializeableContainerBase.hxx" />
@@ -101,7 +110,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\src\Compression\CompressionUtils.cxx" />
+    <ClCompile Include="..\..\Common\src\Configuration\Configuration.cxx" />
+    <ClCompile Include="..\..\Common\src\Configuration\ConfigurationReader.cxx" />
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx" />
+    <ClCompile Include="..\..\Common\src\Logging\Logger.cxx" />
+    <ClCompile Include="..\..\Common\src\Logging\LogMessageFormatter.cxx" />
+    <ClCompile Include="..\..\Common\src\Logging\LogSection.cxx" />
+    <ClCompile Include="..\..\Common\src\Logging\StdOutLogger.cxx" />
+    <ClCompile Include="..\..\Common\src\Logging\TextFileLogger.cxx" />
     <ClCompile Include="..\..\Common\src\Serialization\Serializer.cxx" />
     <ClCompile Include="..\..\Common\src\Serialization\TypeConverters.cxx" />
     <ClCompile Include="..\..\Common\src\Serialization\XmlDocument.cxx" />

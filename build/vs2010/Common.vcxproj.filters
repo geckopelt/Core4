@@ -49,15 +49,18 @@
     <Filter Include="src\Types">
       <UniqueIdentifier>{f2992ca5-6f08-4803-b5a7-091e0947b31f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Configuration">
+      <UniqueIdentifier>{56254d98-336d-49ef-9948-73a2ec00c2f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Configuration">
+      <UniqueIdentifier>{cc17f773-7b46-41dc-9bb2-b2ae3e0cc7dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\include\Utils\Factory.hxx">
       <Filter>include\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\include\Utils\Singleton.hxx">
-      <Filter>include\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Common\include\Utils\Guards.hxx">
       <Filter>include\Utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Common\include\Exceptions\GenericException.hxx">
@@ -108,6 +111,36 @@
     <ClInclude Include="..\..\Common\include\Compression\CompressionUtils.hxx">
       <Filter>include\Compression</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\include\Logging\ILogListener.hxx">
+      <Filter>include\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Logging\Logger.hxx">
+      <Filter>include\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Logging\LogSection.hxx">
+      <Filter>include\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Logging\LogHelpers.hxx">
+      <Filter>include\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Logging\StdOutLogger.hxx">
+      <Filter>include\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Logging\TextFileLogger.hxx">
+      <Filter>include\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Logging\LogMessageFormatter.hxx">
+      <Filter>include\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Configuration\Configuration.hxx">
+      <Filter>include\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Configuration\ConfigurationReader.hxx">
+      <Filter>include\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Utils\Guards.hxx">
+      <Filter>include\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx">
@@ -130,6 +163,27 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\src\Compression\CompressionUtils.cxx">
       <Filter>src\Compression</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Logging\Logger.cxx">
+      <Filter>src\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Logging\LogSection.cxx">
+      <Filter>src\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Logging\StdOutLogger.cxx">
+      <Filter>src\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Logging\TextFileLogger.cxx">
+      <Filter>src\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Logging\LogMessageFormatter.cxx">
+      <Filter>src\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Configuration\Configuration.cxx">
+      <Filter>src\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Configuration\ConfigurationReader.cxx">
+      <Filter>src\Configuration</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

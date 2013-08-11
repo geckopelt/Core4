@@ -6,7 +6,7 @@
 
 namespace Core4
 {
-    /// Zlib compression wrapper
+    /// Zlib compression wrapper.
     struct CompressionUtils
     {
         /// Compress the data.
