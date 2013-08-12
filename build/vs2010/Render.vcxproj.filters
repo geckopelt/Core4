@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{16de6b0c-ee9b-4c33-b8e7-c506dc41393e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{75e9997e-21d7-481b-9566-3bf8de9b3632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Render">
+      <UniqueIdentifier>{d1f95cf7-daad-474c-88ba-d49e76bbac09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Render">
+      <UniqueIdentifier>{4f34f26d-480b-4bd0-a44e-f868fdb63298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Render\win32">
+      <UniqueIdentifier>{fbdc6427-22f8-408e-8e29-6d142aa08a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Render\win32">
+      <UniqueIdentifier>{8db3daac-f5a2-436c-b507-11d3c315adc6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Render\include\Render\ITexture.hxx">
+      <Filter>include\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DTexture.hxx">
+      <Filter>include\Render\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DCommon.hxx">
+      <Filter>include\Render\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\RenderStats.hxx">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\IRenderSystem.hxx">
+      <Filter>include\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DRender.hxx">
+      <Filter>include\Render\win32</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Render\src\Render\win32\Direct3DTexture.cxx">
+      <Filter>src\Render\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Render\src\Render\RenderStats.cxx">
+      <Filter>src\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Render\src\Render\win32\Direct3DRender.cxx">
+      <Filter>src\Render\win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

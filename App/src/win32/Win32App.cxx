@@ -3,18 +3,21 @@
 #include "Win32/Win32App.hxx"
 #include "Logging/TextFileLogger.hxx"
 #include "Logging/Logger.hxx"
+#include "Render/win32/Direct3DRender.hxx"
 
 namespace Core4
 {
     //------------------------------------------------------------------------------------------------------------
     Win32App::Win32App() :
-        m_active(false)
+        m_active(true), 
+        m_hWnd(0)
     {
     }
 
     //------------------------------------------------------------------------------------------------------------
     void Win32App::init(HWND parent)
     {
+        m_hWnd = parent;
         App::init();
         
         // TODO: initialize everything here
@@ -53,6 +56,12 @@ namespace Core4
     unsigned long Win32App::getCurrTime() const
     {
         return (unsigned long)::timeGetTime();
+    }
+
+    //------------------------------------------------------------------------------------------------------------
+    IRenderSystem * Win32App::createRenderSystem()
+    {
+        return new Direct3DRender(m_hWnd);
     }
 
     //------------------------------------------------------------------------------------------------------------

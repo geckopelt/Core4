@@ -11,32 +11,34 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\App\include\App.hxx" />
-    <ClInclude Include="..\..\App\include\BuildInfo.hxx" />
-    <ClInclude Include="..\..\App\include\win32\Win32App.hxx" />
-    <ClInclude Include="..\..\App\include\win32\Win32Common.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\IRenderSystem.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\ITexture.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\RenderStats.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DRender.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DCommon.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DTexture.hxx" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\App\src\App.cxx" />
-    <ClCompile Include="..\..\App\src\win32\Win32App.cxx" />
-    <ClCompile Include="..\..\App\src\win32\WinMain.cxx" />
+    <ClCompile Include="..\..\Render\src\Render\RenderStats.cxx" />
+    <ClCompile Include="..\..\Render\src\Render\win32\Direct3DRender.cxx" />
+    <ClCompile Include="..\..\Render\src\Render\win32\Direct3DTexture.cxx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A3E00DAA-6248-465D-9023-3E843E6D5636}</ProjectGuid>
+    <ProjectGuid>{97C95B57-F972-4691-847D-83486A60DC50}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>App</RootNamespace>
+    <RootNamespace>Render</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>NotSet</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>NotSet</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -49,14 +51,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(CORE4_DEST_BIN)\$(Configuration)\</OutDir>
+    <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
+    <IncludePath>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(CORE4_DEST_BIN)\$(Configuration)\</OutDir>
+    <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
+    <IncludePath>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -64,14 +66,11 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);C4_APP_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;$(CORE4_ROOT)\Common\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;Render.lib;TinyXML.lib;zdll.lib;winmm.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,16 +81,13 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);C4_APP_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;Render.lib;TinyXML.lib;zdll.lib;winmm.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -83,6 +83,8 @@
     <ClInclude Include="..\..\Common\include\Configuration\Configuration.hxx" />
     <ClInclude Include="..\..\Common\include\Configuration\ConfigurationReader.hxx" />
     <ClInclude Include="..\..\Common\include\Exceptions\GenericException.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\FakeImageLoader.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\IImageLoader.hxx" />
     <ClInclude Include="..\..\Common\include\Logging\ILogListener.hxx" />
     <ClInclude Include="..\..\Common\include\Logging\Logger.hxx" />
     <ClInclude Include="..\..\Common\include\Logging\LogHelpers.hxx" />
@@ -113,6 +115,7 @@
     <ClCompile Include="..\..\Common\src\Configuration\Configuration.cxx" />
     <ClCompile Include="..\..\Common\src\Configuration\ConfigurationReader.cxx" />
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx" />
+    <ClCompile Include="..\..\Common\src\Image\FakeImageLoader.cxx" />
     <ClCompile Include="..\..\Common\src\Logging\Logger.cxx" />
     <ClCompile Include="..\..\Common\src\Logging\LogMessageFormatter.cxx" />
     <ClCompile Include="..\..\Common\src\Logging\LogSection.cxx" />

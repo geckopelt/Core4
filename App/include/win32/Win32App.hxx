@@ -35,8 +35,12 @@ namespace Core4
 
         /// @see App
         unsigned long getCurrTime() const;
+
+        /// @see App
+        IRenderSystem * createRenderSystem();
     private:
         bool              m_active;
+        HWND              m_hWnd;
     };
 
 } // namespace Core4
