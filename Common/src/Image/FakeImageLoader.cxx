@@ -14,10 +14,10 @@ namespace Core4
             size_t & height)
     {
         const size_t BytesPerPixel = 4;
-        const size_t AlphaIndex    = 0;
-        const size_t RedIndex      = 1;
-        const size_t GreenIndex    = 2;
-        const size_t BlueIndex     = 3;
+        const size_t AlphaIndex    = 3;
+        const size_t RedIndex      = 2;
+        const size_t GreenIndex    = 1;
+        const size_t BlueIndex     = 0;
         std::vector<unsigned char> colorValue(BytesPerPixel);
         colorValue[AlphaIndex] = m_color.alpha();
         colorValue[RedIndex]   = m_color.red();
@@ -34,5 +34,5 @@ namespace Core4
         }
         return textureData;
     }
-} // namespace 
+} // namespace Core4
 

@@ -105,6 +105,7 @@
     <ClInclude Include="..\..\Common\include\Types\Point.hxx" />
     <ClInclude Include="..\..\Common\include\Types\PointBase.hxx" />
     <ClInclude Include="..\..\Common\include\Types\Vector2.hxx" />
+    <ClInclude Include="..\..\Common\include\Utils\Crc32.hxx" />
     <ClInclude Include="..\..\Common\include\Utils\Factory.hxx" />
     <ClInclude Include="..\..\Common\include\Utils\Guards.hxx" />
     <ClInclude Include="..\..\Common\include\Utils\Singleton.hxx" />
@@ -125,6 +126,7 @@
     <ClCompile Include="..\..\Common\src\Serialization\TypeConverters.cxx" />
     <ClCompile Include="..\..\Common\src\Serialization\XmlDocument.cxx" />
     <ClCompile Include="..\..\Common\src\Types\Color.cxx" />
+    <ClCompile Include="..\..\Common\src\Utils\Crc32.cxx" />
     <ClCompile Include="..\..\Common\src\Utils\StringUtils.cxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

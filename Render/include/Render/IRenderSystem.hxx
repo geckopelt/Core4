@@ -1,13 +1,13 @@
 #pragma once
 
+/// @file IRenderSystem.hxx
+/// @brief 2D Render system interface
+
 #include <string>
 #include "Types/Color.hxx"
 #include "Image/IImageLoader.hxx"
 #include "Render/RenderStats.hxx"
 #include "Render/ITexture.hxx"
-
-/// @file IRenderSystem.hxx
-/// @brief 2D Render system interface
 
 namespace Core4
 {
@@ -76,10 +76,7 @@ namespace Core4
 	    virtual void drawIsoTile(float screenX, float screenY, const Sprite & sprite, const float heights[NumCorners], ITexture * texture) = 0;
 
         /// Create a texture.
-        /// @param Texture name (file name or another resource name).
-        /// @param loader Loader to use.
-        /// @return Texture pointer.
-        virtual ITexture * createTexture(const std::string & name, IImageLoader * loader) = 0;
+        /// @param Texture name (file name or another resource name).        
 
         /// Enable or disable specular color.
 	    /// @param enable wat?.
@@ -93,6 +90,20 @@ namespace Core4
 	    /// @param color Fog color.
 	    virtual void setFogColor(const Color & color) = 0;
 
+        /// Get a texture pointer.
+        /// Loads a texture if not loaded..
+        /// @param name Texture filename.
+        /// @param loader Loader to use.
+        /// @return Texture pointer.
+	    virtual ITexture * getTexture(const std::string & filename, IImageLoader * loader) = 0;
+
+	    /// Unload a texture.
+	    /// @param texture Texture pointer.
+	    virtual void unloadTexture(ITexture * texture) = 0;
+
+	    /// Unloads all textures.
+	    virtual void unloadAllTextures() = 0;
+       
 	    virtual ~IRenderSystem() {}
     };
 } // namespace Core4

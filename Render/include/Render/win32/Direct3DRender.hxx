@@ -2,7 +2,6 @@
 
 /// @file Direct3DRender.hxx
 /// @brief Direct3D Render Implementation
-
 #include "Render/IRenderSystem.hxx"
 #include "Render/win32/Direct3DCommon.hxx"
 #include "Render/win32/Direct3DTexture.hxx"
@@ -45,9 +44,6 @@ namespace Core4
 	    void drawIsoTile(float screenX, float screenY, const Sprite & sprite, const float heights[NumCorners], ITexture * texture);
 
         /// @see IRenderSystem
-        ITexture * createTexture(const std::string & name, IImageLoader * loader);
-
-        /// @see IRenderSystem
 	    void specularEnable(bool enable);
 
         /// @see IRenderSystem
@@ -55,6 +51,15 @@ namespace Core4
 	    
         /// @see IRenderSystem
         void setFogColor(const Color & color);
+
+        /// @see IRenderSystem
+        ITexture * getTexture(const std::string & filename, IImageLoader * loader);
+
+        /// @see IRenderSystem
+        void unloadTexture(ITexture * texture);
+
+	    /// @see IRenderSystem
+	    void unloadAllTextures();
     private:
         Direct3DRender(const Direct3DRender &);
 
@@ -104,6 +109,9 @@ namespace Core4
         D3DCAPS9                 m_caps;          //< Device capabilities
         D3DPRESENT_PARAMETERS    m_presentParams; //< Device present params
         HWND                     m_hWnd;          //< Parent window
+
+        typedef std::map<std::string, ITexture*> Textures;
+        Textures                 m_textures;      //< Loaded textures
     };
 } // namespace Core4
 

@@ -3,13 +3,13 @@
 /// @file PointBase.hxx
 /// @brief 2D point template
 
+#include "Serialization/SerializeActionType.hxx"
 #include "Serialization/Serializeable.hxx"
-#include "Serialization/SerializationUtils.hxx"
 
 namespace Core4
 {
     /// 2D point template
-    template <typename T> class PointBase :  public Serializeable
+    template <typename T> class PointBase : public Serializeable
     {
         T m_x;
         T m_y;
@@ -53,7 +53,7 @@ namespace Core4
         }
 
         /// @see Serializable
-        void perform(TiXmlElement & element, const Core4::SerializeActionType action)
+        void perform(TiXmlElement & element, const SerializeActionType action)
         {
             C4_SERIALIZE_ATTR(m_x);
             C4_SERIALIZE_ATTR(m_y);

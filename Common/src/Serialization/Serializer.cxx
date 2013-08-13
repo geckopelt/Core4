@@ -1,3 +1,4 @@
+#include "Utils/Guards.hxx"
 #include "Serialization/XmlDocument.hxx"
 #include "Serialization/Serializer.hxx"
 

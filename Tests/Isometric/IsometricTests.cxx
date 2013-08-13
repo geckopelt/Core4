@@ -3,14 +3,10 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/extensions/HelperMacros.h>
-#include "Utils/StringUtils.hxx"
 
+#include "Utils/StringUtils.hxx"
 using namespace Core4;
-#include "StringUtilsTests.hxx"
-#include "TypeConverterTests.hxx"
-#include "SerializationTests.hxx"
-#include "CompressionUtilsTests.hxx"
-#include "UtilsTests.hxx"
+#include "SpriteManagerTests.hxx"
 
 //----------------------------------------------------------------------------------------------------------
 int main(int argc, char* argv[])

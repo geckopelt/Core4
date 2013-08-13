@@ -1,0 +1,13 @@
+<sprites>
+  	<category name="Category3">
+    		<sprite 
+			type="simple" 
+			name="SimpleSprite2" 
+			texture="Simple2.tga" 
+			x="32" 
+			y="16" 
+			width="32" 
+			height="32" 
+			alpha="0"/>
+ 	</category>
+</sprites>

@@ -11,7 +11,7 @@ namespace Core4
     /// Image loader interface.
     struct IImageLoader
     {
-        /// Load image as A8R8G8B8 (e.g. 32bpp) array.
+        /// Load image as BGRA (32 bit per pixel) array.
 	    /// @name Filename or another data source name.
 	    /// @param width Output parameter to store texture width into.
         /// @param width Output parameter to store texture height into.

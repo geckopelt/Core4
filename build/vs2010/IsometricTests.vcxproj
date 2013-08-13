@@ -11,20 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AE031DEE-3683-44EB-A4CA-1FCBAB8F8DAF}</ProjectGuid>
-    <RootNamespace>CommonTests</RootNamespace>
+    <ProjectGuid>{61F00853-D012-4B82-A4AD-5F5BC35EB1F8}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>IsometricTests</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -37,68 +38,62 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
     <OutDir>$(CORE4_DEST_BIN)\$(Configuration)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
     <OutDir>$(CORE4_DEST_BIN)\$(Configuration)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)\Common\Include;$(CORE4_3DPARTY)\CppUnit\include;$(CORE4_3DPARTY)\TinyXML\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)\Common\Include;$(CORE4_3DPARTY)\CppUnit\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Render\include;$(CORE4_ROOT)\Isometric\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ShowProgress>NotSet</ShowProgress>
-      <LinkStatus>false</LinkStatus>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;Render.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>$(TargetPath)</Command>
     </PostBuildEvent>
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)\Common\Include;$(CORE4_3DPARTY)\CppUnit\include;$(CORE4_3DPARTY)\TinyXML\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)\Common\Include;$(CORE4_3DPARTY)\CppUnit\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Render\include;$(CORE4_ROOT)\Isometric\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;Render.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>$(TargetPath)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Tests\Common\CommonTests.cxx" />
+    <ClCompile Include="..\..\Tests\Isometric\IsometricTests.cxx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Tests\Common\ComplexSerializeableClass.hxx" />
-    <ClInclude Include="..\..\Tests\Common\CompressionUtilsTests.hxx" />
-    <ClInclude Include="..\..\Tests\Common\SerializationTests.hxx" />
-    <ClInclude Include="..\..\Tests\Common\SimpleSerializeableClass.hxx" />
-    <ClInclude Include="..\..\Tests\Common\StringUtilsTests.hxx" />
-    <ClInclude Include="..\..\Tests\Common\TypeConverterTests.hxx" />
-    <ClInclude Include="..\..\Tests\Common\UtilsTests.hxx" />
+    <ClInclude Include="..\..\Tests\Isometric\SpriteManagerTests.hxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

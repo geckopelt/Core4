@@ -23,13 +23,14 @@ namespace Core4
         m_renderSystem = createRenderSystem();
         CORE4_LOG_MESSAGE("RenderSystem: " + m_renderSystem->getName());
         m_renderSystem->init(
+            // TODO: rename into getScreen...()
             Configuration::getSingleton().screenWidth(),
             Configuration::getSingleton().screenHeight(),
             Configuration::getSingleton().getBpp(),
             Configuration::getSingleton().isWindowed());
 
         // $TMP
-        m_testTexture = m_renderSystem->createTexture("foo", &FakeImageLoader(Color(255, 0, 0, 255))); 
+        m_testTexture = m_renderSystem->getTexture("foo", &FakeImageLoader(Color(255, 0, 0, 128))); 
     }
 
     //------------------------------------------------------------------------------
@@ -43,24 +44,28 @@ namespace Core4
         if (NULL != m_renderSystem)
         {
             // TODO: this code is temporary of course
-            m_renderSystem->clearScreen(Color(32, 32, 32, 255));
+            m_renderSystem->clearScreen(Color(128, 128, 192, 255));
 
             IRenderSystem::Sprite sprite;
             sprite.bitmapX = 0;
             sprite.bitmapY = 0;
             sprite.width = 64;
             sprite.height = 32;
-            sprite.alpha = false;
+            sprite.alpha = true;
 
             float heights[4];
 
             for (int i = 0; i < 4; i++)
             {
-                sprite.diffuse[i] = Color(255, 255, 255, 255);
+                sprite.diffuse[i] = Color(255, 255, 255, 64);
                 sprite.specular[i] = Color(255, 255, 255, 255);
                 heights[i] = 0.0f;
             }
             m_renderSystem->drawSprite(100.0f, 100.0f, sprite, m_testTexture);
+            m_renderSystem->drawSprite(132.0f, 116.0f, sprite, m_testTexture);
+            
+            sprite.alpha = false;
+
             m_renderSystem->drawIsoTile(200.0f, 200.0f, sprite, heights, m_testTexture);
 
             m_renderSystem->render();

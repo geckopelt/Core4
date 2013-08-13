@@ -90,7 +90,7 @@ namespace Core4
     void Direct3DRender::cleanup()
     {
         CORE4_LOG_MESSAGE("Doing renderer cleanup");
-        // TODO: purge textures
+        unloadAllTextures();
         destroyGeometry();
         SAFE_RELEASE(m_device);
         SAFE_RELEASE(m_d3d);
@@ -303,6 +303,62 @@ namespace Core4
     }
 
     //------------------------------------------------------------------------------
+    ITexture * Direct3DRender::getTexture(const std::string & filename, IImageLoader * loader)
+    {
+        Textures::const_iterator it = m_textures.find(filename);
+        if (it != m_textures.end()) 
+        {
+            return it->second;
+        }
+        else
+        {
+            Direct3DTexture * texture = new Direct3DTexture();
+	        texture->create(m_device, loader, filename);
+
+            const size_t kb = texture->getSizeKB();
+	        m_textureMemory += kb;
+
+            CORE4_LOG_MESSAGE(
+                "Texture loaded: \"" + 
+                filename + 
+                "\" (" + 
+                StringUtils::intToString(texture->getWidth()) +
+                "x" + 
+                StringUtils::intToString(texture->getHeight()) +
+                "), " +
+                StringUtils::intToString(kb) +
+                "KB");
+            m_textures[filename] = texture;
+		    return texture;
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    void Direct3DRender::unloadTexture(ITexture * texture)
+    {
+          CORE4_CHECK(NULL != texture, "Texture is NULL");
+          const std::string & name = texture->getName();
+          Textures::iterator it = m_textures.find(name);
+          CORE4_CHECK(it != m_textures.end(), "No such texture: \"" + name + "\"");
+
+          int memoryKB = m_stats.getTexturesMemory() - it->second->getSizeKB(); 
+          delete it->second; 
+          m_textures.erase(it);
+          m_stats.setTexturesMemory(memoryKB);
+    }
+
+    //------------------------------------------------------------------------------
+    void Direct3DRender::unloadAllTextures()
+    {
+        for (Textures::iterator it = m_textures.begin(); it != m_textures.end(); it++)
+        {
+            delete it->second;
+        }
+        m_textures.clear();
+        m_stats.setTexturesMemory(0);
+    }
+
+    //------------------------------------------------------------------------------
     void Direct3DRender::drawQuad(const SpriteVertex vertices[NumCorners], ITexture * texture, bool alpha)
     {
         // Turn 4 vertices into 6
@@ -321,28 +377,6 @@ namespace Core4
         }
         m_spriteAttributes.push_back(SpriteAttributes(texture, alpha));
         m_autoZ -= (1.f / MaxSprites);
-    }
-
-    //------------------------------------------------------------------------------
-    ITexture * Direct3DRender::createTexture(const std::string & name, IImageLoader * loader)
-    {
-        Direct3DTexture * texture = new Direct3DTexture();
-	    texture->create(m_device, loader, name);
-
-        const size_t kb = texture->getSizeKB();
-	    m_textureMemory += kb;
-
-        CORE4_LOG_MESSAGE(
-            "Texture created: \"" + 
-            name + 
-            "\" (" + 
-            StringUtils::intToString(texture->getWidth()) +
-            "x" + 
-            StringUtils::intToString(texture->getHeight()) +
-            "), " +
-            StringUtils::intToString(kb) +
-            "KB");
-		return texture;
     }
 
     //------------------------------------------------------------------------------

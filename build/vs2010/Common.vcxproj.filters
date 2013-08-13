@@ -147,6 +147,9 @@
     <ClInclude Include="..\..\Common\include\Image\FakeImageLoader.hxx">
       <Filter>include\Image</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\include\Utils\Crc32.hxx">
+      <Filter>include\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx">
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\src\Image\FakeImageLoader.cxx">
       <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Utils\Crc32.cxx">
+      <Filter>src\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

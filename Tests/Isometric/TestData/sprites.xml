@@ -1,0 +1,41 @@
+<sprites>	
+	<include "more_sprites.xml"/>
+  	<category name="Category1">
+    		<sprite 
+			type="simple" 
+			name="SimpleSprite" 
+			texture="Simple.tga" 
+			x="0" 
+			y="0" 
+			width="64" 
+			height="32" 
+			alpha="1"/>
+ 	</category>
+
+	<category name="Category2">
+		<sprite 
+			type="multiframe"
+			name="Hero_Walk_NE" 
+			texture="Critters/Hero_Walk.tga"  
+			alpha="1" 
+			fps="12" 
+			startX="0"   
+			width="64" 
+			height="64" 
+			stepX="0" 
+			stepY="64"
+			numFrames="11"/>
+		<sprite 
+			type="multiframe"
+			name="Hero_Walk_SE" 
+			texture="Critters/Hero_Walk.tga"  
+			alpha="1" 
+			fps="12" 
+			startX="64"   
+			width="64" 
+			height="64" 
+			stepX="0" 
+			stepY="64"
+			numFrames="11"/>
+	</category>
+</sprites>

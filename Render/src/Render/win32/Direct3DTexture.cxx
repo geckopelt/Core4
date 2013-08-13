@@ -112,6 +112,8 @@ namespace Core4
         const size_t offset = y * m_lockedRect.Pitch + x * 4;
         char * bits = (char*)m_lockedRect.pBits + offset;
 
+        // TODO: check
+        // TODO: move these indices somewhere
         const int RedIndex = 2;
         const int GreenIndex = 1;
         const int BlueIndex = 0;
