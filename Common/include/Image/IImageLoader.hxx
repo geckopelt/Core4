@@ -16,10 +16,12 @@ namespace Core4
 	    /// @param width Output parameter to store texture width into.
         /// @param width Output parameter to store texture height into.
 	    /// @return Loaded image array.
-	    virtual const std::vector<unsigned char> loadTexture(
+	    virtual const std::vector<unsigned char> loadImage(
             const std::string & name,
             size_t & width,
             size_t & height) = 0;
+
+        virtual ~IImageLoader() {}
     };
 
 } // namespace Core4
