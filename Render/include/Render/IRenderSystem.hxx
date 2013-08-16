@@ -29,6 +29,15 @@ namespace Core4
 		    bool  alpha;       //< Whether to use the alpha channel.
         };
 
+        /// A primitive point
+        struct PrimitivePoint
+        {
+            PrimitivePoint() : x(0), y(0) {}
+            float x;     //< X coord, in pixels
+            float y;     //< Y coord, in pixels
+            Color color; //< Point color
+        };
+
         /// Get render name.
         /// @return Render name.
         virtual const std::string & getName() const = 0;
@@ -75,8 +84,10 @@ namespace Core4
         /// @param texture Tile texture.
 	    virtual void drawIsoTile(float screenX, float screenY, const Sprite & sprite, const float heights[NumCorners], ITexture * texture) = 0;
 
-        /// Create a texture.
-        /// @param Texture name (file name or another resource name).        
+        /// Draw a line between two points.
+        /// @param start Point 1
+        /// @param start Point 2
+        virtual void drawLine(const PrimitivePoint & start, const PrimitivePoint & end) = 0;
 
         /// Enable or disable specular color.
 	    /// @param enable wat?.

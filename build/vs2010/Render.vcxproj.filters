@@ -30,14 +30,23 @@
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DCommon.hxx">
       <Filter>include\Render\win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Render\include\Render\RenderStats.hxx">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Render\include\Render\IRenderSystem.hxx">
       <Filter>include\Render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DRender.hxx">
       <Filter>include\Render\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\Primitive.hxx">
+      <Filter>include\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DVertexBuffer.hxx">
+      <Filter>include\Render\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\RenderStats.hxx">
+      <Filter>include\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\Circle.hxx">
+      <Filter>include\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +58,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Render\src\Render\win32\Direct3DRender.cxx">
       <Filter>src\Render\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Render\src\Render\win32\Direct3DVertexBuffer.cxx">
+      <Filter>src\Render\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Render\src\Render\Primitive.cxx">
+      <Filter>src\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Render\src\Render\Circle.cxx">
+      <Filter>src\Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

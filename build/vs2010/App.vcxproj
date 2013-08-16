@@ -83,7 +83,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);C4_APP_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;$(CORE4_ROOT)\Common\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -11,17 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Render\include\Render\Circle.hxx" />
     <ClInclude Include="..\..\Render\include\Render\IRenderSystem.hxx" />
     <ClInclude Include="..\..\Render\include\Render\ITexture.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\Primitive.hxx" />
     <ClInclude Include="..\..\Render\include\Render\RenderStats.hxx" />
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DRender.hxx" />
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DCommon.hxx" />
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DTexture.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\win32\Direct3DVertexBuffer.hxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Render\src\Render\Circle.cxx" />
+    <ClCompile Include="..\..\Render\src\Render\Primitive.cxx" />
     <ClCompile Include="..\..\Render\src\Render\RenderStats.cxx" />
     <ClCompile Include="..\..\Render\src\Render\win32\Direct3DRender.cxx" />
     <ClCompile Include="..\..\Render\src\Render\win32\Direct3DTexture.cxx" />
+    <ClCompile Include="..\..\Render\src\Render\win32\Direct3DVertexBuffer.cxx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{97C95B57-F972-4691-847D-83486A60DC50}</ProjectGuid>
@@ -53,12 +59,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
-    <IncludePath>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
-    <IncludePath>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -67,6 +73,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_3DPARTY)/TinyXML/include;$(IncludePath)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -82,6 +89,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_3DPARTY)/TinyXML/include;$(IncludePath)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

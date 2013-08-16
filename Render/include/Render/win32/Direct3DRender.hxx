@@ -5,6 +5,7 @@
 #include "Render/IRenderSystem.hxx"
 #include "Render/win32/Direct3DCommon.hxx"
 #include "Render/win32/Direct3DTexture.hxx"
+#include "Render/win32/Direct3DVertexBuffer.hxx"
 
 namespace Core4
 {
@@ -44,6 +45,9 @@ namespace Core4
 	    void drawIsoTile(float screenX, float screenY, const Sprite & sprite, const float heights[NumCorners], ITexture * texture);
 
         /// @see IRenderSystem
+        void drawLine(const PrimitivePoint & start, const PrimitivePoint & end);
+
+        /// @see IRenderSystem
 	    void specularEnable(bool enable);
 
         /// @see IRenderSystem
@@ -63,12 +67,21 @@ namespace Core4
     private:
         Direct3DRender(const Direct3DRender &);
 
+        void renderSprites();
+        void renderPrimitives();
+
         struct SpriteVertex
         {
             float x, y, z, rhw;
             DWORD diffuse;
             DWORD specular;
             float u, v;
+        };
+
+        struct PrimitiveVertex
+        {
+            float x, y, z, rhw;
+            DWORD diffuse;
         };
 
         struct SpriteAttributes
@@ -80,8 +93,9 @@ namespace Core4
             SpriteAttributes(ITexture * t, bool a) : texture(t), useAlpha(a) {}
         };
 
-        std::list<SpriteAttributes> m_spriteAttributes; //< Sprite attributes.
-        std::vector<char>           m_spriteVertices;   //< Sprite vertices.
+        std::list<SpriteAttributes> m_spriteAttributes;  //< Sprite attributes.
+        std::vector<char>           m_spriteVertices;    //< Sprite vertices.
+        std::vector<char>           m_primitiveVertices; //< Primitive vertices. 
 
 	    void setRenderStates();
 	    void createGeometry();
@@ -91,20 +105,25 @@ namespace Core4
 
 	    void drawQuad(const SpriteVertex vertices[NumCorners], ITexture * texture, bool alpha);
 
-        static const DWORD SpriteFVF = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1;
+        static const DWORD SpriteFVF    = D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1;
+        static const DWORD PrimitiveFVF = D3DFVF_XYZRHW | D3DFVF_DIFFUSE;
 
-        static const size_t MaxSprites  = 8192;
-        static const size_t MaxVertices = MaxSprites * 6;
+        static const size_t MaxSprites           = 8192;
+        static const size_t MaxVertices          = MaxSprites * 6;
+        static const size_t MaxPrimitiveLines    = 8192;
+        static const size_t MaxPrimitiveVertices = MaxPrimitiveLines * 2;
 
         time_t                   m_previousTime;  //< For FPS calculation purposes
         size_t                   m_numFrames;     //< For FPS calculation purposes
         size_t                   m_numSprites;    //< Number of sprites currently visible
+        size_t                   m_numLines;      //< Number of lines currently visible
         size_t                   m_textureMemory; //< Texture memory (in KB)
         float                    m_maxAutoZ;      //< Auto Z assignment thingy
         float                    m_autoZ;         //< Ditto
         IDirect3D9 *             m_d3d;           //< D3D interface
         IDirect3DDevice9 *       m_device;        //< D3D device interface
-        IDirect3DVertexBuffer9 * m_vb;            //< D3D vertex buffer interface
+        Direct3DVertexBuffer     m_spriteVB;      //< VB for sprites
+        Direct3DVertexBuffer     m_primitiveVB;   //< VB for primitives
         RenderStats              m_stats;         //< Render stats
         D3DCAPS9                 m_caps;          //< Device capabilities
         D3DPRESENT_PARAMETERS    m_presentParams; //< Device present params

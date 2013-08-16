@@ -1,4 +1,5 @@
 #include "Sprites/Animation.hxx"
+#include "Sprites/SpriteManager.hxx"
 
 namespace Core4
 {
@@ -36,7 +37,6 @@ namespace Core4
     //--------------------------------------------------------------------------------------------------------
     void Animation::setup(size_t spriteIndex)
     {
-        /* TODO: port SpriteManager
         const Sprite & sprite = SpriteManager::getSingleton().getSprite(spriteIndex);
         m_spriteIndex  = spriteIndex;
         m_startFrame   = 0;
@@ -45,7 +45,6 @@ namespace Core4
         m_maxTime      = 1000.f / m_fps;
         m_currentFrame = m_startFrame;
         m_isPlaying    = false;
-        */
     }
 
     //--------------------------------------------------------------------------------------------------------

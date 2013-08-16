@@ -10,45 +10,19 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Isometric\include\Common\IUpdateable.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Light\Light.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Location\ILocationObjectMovementListener.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Location\IsoDirection.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Location\LocationMapObject.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Pathfinding\Path.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\Animation.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\AppearanceManager.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\IAppearanceManager.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\ISpriteManager.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\Sprite.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\SpriteDescriptionsLoader.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\SpriteFrame.hxx" />
-    <ClInclude Include="..\..\Isometric\include\Sprites\SpriteManager.hxx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Isometric\src\Light\Light.cxx" />
-    <ClCompile Include="..\..\Isometric\src\Location\LocationMapObject.cxx" />
-    <ClCompile Include="..\..\Isometric\src\Sprites\Animation.cxx" />
-    <ClCompile Include="..\..\Isometric\src\Sprites\AppearanceManager.cxx" />
-    <ClCompile Include="..\..\Isometric\src\Sprites\Sprite.cxx" />
-    <ClCompile Include="..\..\Isometric\src\Sprites\SpriteDescriptionsLoader.cxx" />
-    <ClCompile Include="..\..\Isometric\src\Sprites\SpriteFrame.cxx" />
-    <ClCompile Include="..\..\Isometric\src\Sprites\SpriteManager.cxx" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8BC7FE49-07A0-4430-B071-AC520306F8A5}</ProjectGuid>
+    <ProjectGuid>{73F804B9-1011-4AD2-BF7E-C7FA39C22CFE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Isometric</RootNamespace>
+    <RootNamespace>GenSpriteSet</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
@@ -64,14 +38,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
-    <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
-    <IncludePath>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_ROOT)/Isometric/include;$(IncludePath)</IncludePath>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(CORE4_DEST_TOOLS)$(Configuration)\</OutDir>
+    <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
-    <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
-    <IncludePath>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_ROOT)/Isometric/include;$(IncludePath)</IncludePath>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(CORE4_DEST_TOOLS)$(Configuration)\</OutDir>
+    <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -79,12 +53,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_3DPARTY)\TinyXML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)\Common\Include;$(CORE4_3DPARTY)\CppUnit\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Tools\GenSpriteSet\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,16 +71,26 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_3DPARTY)\TinyXML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)\Common\Include;$(CORE4_3DPARTY)\CppUnit\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Tools\GenSpriteSet\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Tools\GenSpriteSet\src\Fx\Noise.cxx" />
+    <ClCompile Include="..\..\Tools\GenSpriteSet\src\Main.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Tools\GenSpriteSet\include\Fx\IEffect.hxx" />
+    <ClInclude Include="..\..\Tools\GenSpriteSet\include\Fx\Noise.hxx" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Tests\Common\ComplexSerializeableClass.hxx" />
     <ClInclude Include="..\..\Tests\Common\CompressionUtilsTests.hxx" />
+    <ClInclude Include="..\..\Tests\Common\ImageTests.hxx" />
     <ClInclude Include="..\..\Tests\Common\SerializationTests.hxx" />
     <ClInclude Include="..\..\Tests\Common\SimpleSerializeableClass.hxx" />
     <ClInclude Include="..\..\Tests\Common\StringUtilsTests.hxx" />

@@ -19,7 +19,7 @@ namespace Core4
         FakeImageLoader(const Color & color);
 
         /// @see IImageLoader
-        const std::vector<unsigned char> loadTexture(
+        const std::vector<unsigned char> loadImage(
             const std::string & name,
             size_t & width,
             size_t & height);

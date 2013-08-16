@@ -28,6 +28,9 @@
     <Filter Include="src\Location">
       <UniqueIdentifier>{53024a44-ac15-4525-ae67-ef83ca56011d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Pathfinding">
+      <UniqueIdentifier>{9e09c0f8-8c26-4c57-83af-407cbbe94cd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Isometric\include\Common\IUpdateable.hxx">
@@ -60,6 +63,18 @@
     <ClInclude Include="..\..\Isometric\include\Sprites\SpriteDescriptionsLoader.hxx">
       <Filter>include\Sprites</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Isometric\include\Location\ILocationObjectMovementListener.hxx">
+      <Filter>include\Location</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Isometric\include\Pathfinding\Path.hxx">
+      <Filter>include\Pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Isometric\include\Sprites\AppearanceManager.hxx">
+      <Filter>include\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Isometric\include\Sprites\IAppearanceManager.hxx">
+      <Filter>include\Sprites</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Isometric\src\Sprites\Sprite.cxx">
@@ -81,6 +96,9 @@
       <Filter>src\Sprites</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Isometric\src\Sprites\SpriteDescriptionsLoader.cxx">
+      <Filter>src\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Isometric\src\Sprites\AppearanceManager.cxx">
       <Filter>src\Sprites</Filter>
     </ClCompile>
   </ItemGroup>

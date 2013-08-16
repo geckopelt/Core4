@@ -11,12 +11,12 @@ namespace Core4
     Direct3DRender::Direct3DRender(HWND hWnd) :
 	    m_d3d(NULL),
 	    m_device(NULL),
-	    m_vb(NULL),
         m_maxAutoZ(1.f - 1.f / MaxSprites),
 	    m_autoZ(m_maxAutoZ),
 	    m_previousTime(0),
 	    m_numFrames(0),
 	    m_numSprites(0),
+        m_numLines(0),
 	    m_textureMemory(0),
         m_hWnd(hWnd)
     {
@@ -84,6 +84,7 @@ namespace Core4
         initDevice();
         m_stats = RenderStats();
         m_spriteVertices.resize(MaxVertices * sizeof(SpriteVertex));
+        m_primitiveVertices.resize(MaxPrimitiveVertices * sizeof(PrimitiveVertex));
     }
 
     //------------------------------------------------------------------------------
@@ -109,54 +110,81 @@ namespace Core4
     }
 
     //------------------------------------------------------------------------------
+    void Direct3DRender::renderSprites()
+    {
+        const size_t numSprites = m_spriteAttributes.size();
+        size_t numTextures(0);
+        if (!m_spriteAttributes.empty())
+        {
+            // 1. Copy vertices into VB
+            if (m_spriteVB.fill(m_spriteVertices))
+            {
+                if (SUCCEEDED(m_device->BeginScene()))
+                {
+                    m_spriteVB.setStreamSource(m_device);
+
+                    // 2. Draw all sprites.
+                    SpriteAttributes prevAtts;
+                    size_t baseVertex(0);
+                    for (std::list<SpriteAttributes>::iterator it = m_spriteAttributes.begin(); it != m_spriteAttributes.end(); it++)
+                    {
+                        SpriteAttributes & atts = (*it);
+                        // Switch texture if necessary
+                        if (atts.texture != prevAtts.texture)
+                        {
+                            m_device->SetTexture(0, static_cast<IDirect3DTexture9*>(atts.texture->getInnerTexture()));
+                            numTextures++;
+                        }
+
+                        // Do not switch render states until necessary
+                        if (atts.useAlpha != prevAtts.useAlpha)
+                        {
+                            enableAlpha(atts.useAlpha);
+                        }
+
+                        m_device->DrawPrimitive(D3DPT_TRIANGLELIST, baseVertex, 2);
+
+                        const size_t VerticesPerSprite = 6;
+                        prevAtts = atts;
+                        baseVertex += VerticesPerSprite;
+                    } // for
+                    m_device->EndScene();
+                    m_spriteAttributes.clear();
+
+                    m_stats.setNumSprites(numSprites);
+                    m_stats.setNumTextures(numTextures);
+                } // if
+            } // if
+        } // if
+    }
+
+    //------------------------------------------------------------------------------
+    void Direct3DRender::renderPrimitives()
+    {
+        if (m_numLines > 0)
+        {
+            m_device->SetTexture(0, NULL);
+            if (m_primitiveVB.fill(m_primitiveVertices))
+            {
+                if (SUCCEEDED(m_device->BeginScene()))
+                {
+                    m_primitiveVB.setStreamSource(m_device);
+                    m_device->DrawPrimitive(D3DPT_LINELIST, 0, m_numLines);
+                    m_device->EndScene();
+                }
+            }
+        }
+    }
+
+    //------------------------------------------------------------------------------
     void Direct3DRender::render()
     {
         if (NULL != m_device)
         {
-            const size_t numSprites = m_spriteAttributes.size();
-            size_t numTextures(0);
-
             m_autoZ = m_maxAutoZ;
-            if (!m_spriteAttributes.empty())
-            {
-                // 1. Copy vertices into VB
-                char * bytes(0);
-                if (SUCCEEDED(m_vb->Lock(0, 0, (void**)&bytes, D3DLOCK_DISCARD)))
-                {
-                    memcpy(bytes, &(m_spriteVertices[0]), m_spriteVertices.size());
-                    m_vb->Unlock();
-                    if (SUCCEEDED(m_device->BeginScene()))
-                    {
-                        // 2. Draw all sprites.
-                        SpriteAttributes prevAtts;
-                        size_t baseVertex(0);
-                        for (std::list<SpriteAttributes>::iterator it = m_spriteAttributes.begin(); it != m_spriteAttributes.end(); it++)
-                        {
-                            SpriteAttributes & atts = (*it);
-                            // Switch texture if necessary
-                            if (atts.texture != prevAtts.texture)
-                            {
-                                m_device->SetTexture(0, static_cast<IDirect3DTexture9*>(atts.texture->getInnerTexture()));
-                                numTextures++;
-                            }
 
-                            // Do not switch render states until necessary
-                            if (atts.useAlpha != prevAtts.useAlpha)
-                            {
-                                enableAlpha(atts.useAlpha);
-                            }
-
-                            m_device->DrawPrimitive(D3DPT_TRIANGLELIST, baseVertex, 2);
-
-                            const size_t VerticesPerSprite = 6;
-                            prevAtts = atts;
-                            baseVertex += VerticesPerSprite;
-                        } // for
-                        m_device->EndScene();
-                        m_spriteAttributes.clear();
-                    } // if
-                } // if
-            } // if
+            renderSprites();
+            renderPrimitives();
 
             HRESULT res = m_device->Present(NULL, NULL, NULL, NULL);
             if (D3DERR_DEVICELOST == res)
@@ -194,10 +222,9 @@ namespace Core4
                 m_numFrames++;
             }
 
-            m_stats.setNumSprites(numSprites);
-            m_stats.setNumTextures(numTextures);
             m_stats.setTexturesMemory(m_textureMemory);
             m_numSprites = 0;
+            m_numLines = 0;
         }
     }
 
@@ -302,6 +329,24 @@ namespace Core4
 	    drawQuad(quad, texture, sprite.alpha);
     }
 
+    void Direct3DRender::drawLine(const PrimitivePoint & start, const PrimitivePoint & end)
+    {
+        DWORD startColor = D3DCOLOR_RGBA(start.color.red(), start.color.green(), start.color.blue(), start.color.alpha());
+        DWORD endColor   = D3DCOLOR_RGBA(end.color.red(), end.color.green(), end.color.blue(), end.color.alpha());
+
+        const size_t LinePoints = 2;
+	    PrimitiveVertex line[LinePoints] =
+	    {
+	        // x       y        z        rhw  diffuse
+	        { start.x, start.y, m_autoZ, 1.f, startColor },
+            { end.x,   end.y,   m_autoZ, 1.f, endColor }
+	    };
+
+        const size_t offset = m_numLines * LinePoints * sizeof(PrimitiveVertex);
+        memcpy(&m_primitiveVertices[offset], (void*)line, sizeof(PrimitiveVertex) * 2);
+        m_numLines++;
+    }
+
     //------------------------------------------------------------------------------
     ITexture * Direct3DRender::getTexture(const std::string & filename, IImageLoader * loader)
     {
@@ -387,11 +432,9 @@ namespace Core4
         m_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
         m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-    /*
-        m_device->SetTextureStageState(0, D3DTSS_MINFILTER, D3DTEXF_POINT);
-        m_device->SetTextureStageState(0, D3DTSS_MIPFILTER, D3DTEXF_POINT);
-        m_device->SetTextureStageState(0, D3DTSS_MAGFILTER, D3DTEXF_POINT);
-    */
+        // TODO check documentation
+        // m_device->SetRenderState(D3DRS_ANTIALIASEDLINEENABLE, TRUE);
+
         m_device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_NONE);
         m_device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_NONE);
         m_device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_NONE);
@@ -414,29 +457,15 @@ namespace Core4
     //------------------------------------------------------------------------------
     void Direct3DRender::createGeometry()
     {
-        CORE4_CHECK(NULL == m_vb, "Vertex buffer already created");
-
-        CORE4_LOG_MESSAGE("Creating vertex buffer");
-
-        CORE4_CHECK(
-            SUCCEEDED(
-                m_device->CreateVertexBuffer(
-                    MaxVertices * sizeof(SpriteVertex),
-                    D3DUSAGE_DYNAMIC,
-                    SpriteFVF,
-                    D3DPOOL_DEFAULT,
-                    &m_vb,
-                    NULL)),
-            "Could not create vertex buffer");
-
-        m_device->SetStreamSource(0, m_vb, 0, sizeof(SpriteVertex));
-        m_device->SetFVF(SpriteFVF);
+        m_spriteVB.create(m_device, MaxVertices, sizeof(SpriteVertex), SpriteFVF);
+        m_primitiveVB.create(m_device, MaxPrimitiveVertices, sizeof(PrimitiveVertex), PrimitiveFVF);
     }
 
     //------------------------------------------------------------------------------
     void Direct3DRender::destroyGeometry()
     {
-        SAFE_RELEASE(m_vb);
+        m_spriteVB.destroy();
+        m_primitiveVB.destroy();
     }
 
     //------------------------------------------------------------------------------

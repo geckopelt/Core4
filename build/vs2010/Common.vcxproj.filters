@@ -150,6 +150,24 @@
     <ClInclude Include="..\..\Common\include\Utils\Crc32.hxx">
       <Filter>include\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\include\Image\TargaLoader.hxx">
+      <Filter>include\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Image\TargaHeader.hxx">
+      <Filter>include\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Image\TargaHeaderValues.hxx">
+      <Filter>include\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Image\IImageWriter.hxx">
+      <Filter>include\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Image\TargaWriter.hxx">
+      <Filter>include\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\include\Image\ImageManipulator.hxx">
+      <Filter>include\Image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx">
@@ -199,6 +217,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\src\Utils\Crc32.cxx">
       <Filter>src\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Image\TargaLoader.cxx">
+      <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Image\TargaWriter.cxx">
+      <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Image\ImageManipulator.cxx">
+      <Filter>src\Image</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

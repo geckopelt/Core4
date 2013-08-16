@@ -77,7 +77,6 @@ namespace Core4
         /// @return Sprite categories count.
         virtual size_t getCategoryCount() const = 0;
 
-
         virtual ~ISpriteManager();
     };
 } // namespace Core4

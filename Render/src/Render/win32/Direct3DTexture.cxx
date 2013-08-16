@@ -30,7 +30,7 @@ namespace Core4
         CORE4_CHECK(NULL != loader, "Could not load texture \"" + name + "\", because loader is NULL");
         destroy();
 
-        const std::vector<unsigned char> bitmap = loader->loadTexture(name, m_width, m_height);
+        const std::vector<unsigned char> bitmap = loader->loadImage(name, m_width, m_height);
 
         const int Levels = 1;
 
@@ -46,6 +46,8 @@ namespace Core4
                     &m_texture,
                     NULL)),
             "Could not create texture for \"" + name + "\"");
+
+        // TODO: use ImageManipuilator
 
         lock();
         const size_t RowWidth = m_width * 4;
@@ -112,7 +114,6 @@ namespace Core4
         const size_t offset = y * m_lockedRect.Pitch + x * 4;
         char * bits = (char*)m_lockedRect.pBits + offset;
 
-        // TODO: check
         // TODO: move these indices somewhere
         const int RedIndex = 2;
         const int GreenIndex = 1;

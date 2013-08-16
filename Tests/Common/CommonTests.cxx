@@ -11,6 +11,7 @@ using namespace Core4;
 #include "SerializationTests.hxx"
 #include "CompressionUtilsTests.hxx"
 #include "UtilsTests.hxx"
+#include "ImageTests.hxx"
 
 //----------------------------------------------------------------------------------------------------------
 int main(int argc, char* argv[])

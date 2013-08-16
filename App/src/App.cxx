@@ -2,6 +2,7 @@
 #include "Logging/LogHelpers.hxx"
 #include "Configuration/Configuration.hxx"
 #include "Image/FakeImageLoader.hxx"
+#include "Render/Circle.hxx"
 
 namespace Core4
 {
@@ -44,7 +45,7 @@ namespace Core4
         if (NULL != m_renderSystem)
         {
             // TODO: this code is temporary of course
-            m_renderSystem->clearScreen(Color(128, 128, 192, 255));
+            m_renderSystem->clearScreen(Color(255, 255, 255, 255));
 
             IRenderSystem::Sprite sprite;
             sprite.bitmapX = 0;
@@ -68,6 +69,22 @@ namespace Core4
 
             m_renderSystem->drawIsoTile(200.0f, 200.0f, sprite, heights, m_testTexture);
 
+            IRenderSystem::PrimitivePoint start;
+            start.x = 10.0f;
+            start.y = 20.0f;
+            start.color = Color::Red;
+
+            IRenderSystem::PrimitivePoint end;
+            end.x = 50.0f;
+            end.y = 50.0f;
+            end.color = Color::Green;
+
+            m_renderSystem->drawLine(start, end);
+
+            Circle(320.f, 200.f, 128.f, Color::Yellow).draw(m_renderSystem);
+            Circle(320.f, 200.f, 63.f, Color(0, 255, 0, 128)).draw(m_renderSystem);
+            Circle(320.f, 200.f, 32.f, Color::Blue).draw(m_renderSystem);
+
             m_renderSystem->render();
         }
     }
@@ -75,9 +92,6 @@ namespace Core4
     //------------------------------------------------------------------------------
     void App::deinit()
     {
-        // TMP!
-        delete m_testTexture;
-
         m_renderSystem->cleanup();
         delete m_renderSystem;
         m_renderSystem = NULL;

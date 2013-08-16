@@ -1,0 +1,14 @@
+Programmatically generate tile textures (multiple textures each, plus transitional ones):
+grass
+sand
+wasteland
+swamp
+stone
+concrete floor
+wooden floor
+asphalt
+water (animated)
+water (still, transparent)
+
+Ideas:
+grass + wind

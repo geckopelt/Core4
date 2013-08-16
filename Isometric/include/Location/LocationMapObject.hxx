@@ -3,18 +3,12 @@
 /// @file LocationMapObject.hxx
 /// @brief An object at location map.
 
-#include "TypesC4Types.hxx"
-#include "C4Animation.hxx"
 #include "Serialization/Serializeable.hxx"
-#include "C4SerializationUtils.hxx"
-#include "C4SquirrelUtils.hxx"
-#include "C4Extras.hxx"
-#include "C4SimplePathfinder.hxx"
-
 #include "Sprites/Animation.hxx"
 #include "Location/IsoDirection.hxx"
-
-/* TODO
+#include "Location/ILocationObjectMovementListener.hxx"
+#include "Pathfinding/Path.hxx"
+#include "Sprites/ISpriteMananger.hxx"
 
 namespace Core4
 {
@@ -48,111 +42,119 @@ namespace Core4
         /// @return Current tile offset, in pixels.
         const Vector2 getTileOffset() const;
 
+        /// Get animation object.
+        /// @return Animation object reference.
         Animation & getAnimation();
         
-        void setAppearance(const std::string & name, const int direction);
+        /// Set isometric visual appearance.
+        /// @param name Appearance name. Appearance is a set of sprite for all isometric directions.
+        /// @param direction Initial direction to set.
+        void setAppearance(const std::string & name, const IsoDirection direction);
         
+        /// Set simple visual appearance (just a single sprite for all directions).
+        /// @param spriteName Sprite name.
+        /// @param direction Initial direction to set.
         void setSimpleAppearance(const std::string & spriteName, const int direction);
 
-        /// Перейти на соседний тайл.
-        /// @param direction Направление движения.
-        /// @param velocity Скорость движения, м/с. Один тайл - 1x1 м.
-        /// @param endCallback Имя скриптовой-функции, которая будет вызвана, когда объект закончит перемещение,
-        /// в качестве аргумента будет передано его имя.
-        void moveTo(const int direction, float velocity, const std::string & endCallback);
+        /// Walk to neighbour cell.
+        /// @param direction Walk direction.
+        /// @param speed Movement speed, cells per second.
+        /// @param listener Object movement callback listener.
+        void moveTo(const int direction, float speed, ILocationObjectMovementListener * listener);
 
-        /// Пойти по заданному пути
-        /// @param path Путь
-        /// @param velocity Скорость, с которой пойдем
-        /// @param endCallback Имя скриптовой-функции, которая будет вызвана, когда объект закончит перемещение,
-        void walkPath(const Path & path, float velocity, const std::string & endCallback);
+        /// Walk the path.
+        /// @param path A path to walk.
+        /// @param speed Movement speed, cells per second.
+        /// @param listener Object movement callback listener.
+        void walkPath(const Path & path, float speed, ILocationObjectMovementListener * listener);
 
+        /// Is it visible?
+        /// @return true if visible.
         const bool isVisible() const;
+
+        /// Set object visibility.
+        /// @param visible Visibility flag.
         void setVisible(bool visible);
 
+        /// Set object display layer.
+        /// Objects are sorted in layers.
+        /// @param layer Layer number to set.
         void setLayer(size_t layer);
+
+        /// @return Object display layer
         const size_t & getLayer() const;
 
-        // $TMP?
-        void setWorldPos(const Point & pos);
+        /// Set location position.
+        /// @param pos Cell to place object in.
+        void setLocationPos(const Point & pos);
 
-        const std::string getName() const;
+        /// Get location position.
+        /// @return Location position.
+        const Point & getLocationPos() const;
+
+        /// Set object unique name.
+        /// @param name Object name
         void setName(const std::string & name);
 
+        /// Get object unique name.
+        /// @return Object unique name
+        const std::string getName() const;
+
+        /// Is it selectable?
+        /// @param enabled Selection enable flag.
         void setSelectionEnabled(bool enabled);
+        
+        /// Is selection enabled?
+        /// @return true if enabled.
         bool selectionEnabled() const;
 
+        /// Set object color. Useful for some effects.
+        /// @param color Object color.
         void setColor(const Color & color);
+
+        /// Get object color.
+        /// @return Object color.
         const Color & getColor() const;
 
-  C4_SERIALIZATION
-  {
-    C4_SERIALIZE_ATTR(m_name);
-    C4_SERIALIZE_CHILD(m_worldPos,   "worldPos");
-    C4_SERIALIZE_CHILD(m_tileOffset, "tileOffset");
+        /// Get all the sprite keys currently used by this object
+        const std::vector<ISpriteManager::SpriteKey> & getSprites() const; 
 
-    C4_SERIALIZE_CHILD(m_startVector, "startVector");
-    C4_SERIALIZE_CHILD(m_endVector,   "endVector");
-    C4_SERIALIZE_ATTR(m_moveLerp);
+        /// Set temporary object flag. Temporary objects are skipped on serialization.
+        /// Useful for special effects and so on.
+        /// @param temp Temporary flag.
+        void setTemporary(bool temp);
+        
+        /// Is this object temporary? 
+        bool isTemporary() const;
 
-    C4_SERIALIZE_ATTR(m_direction);
-    C4_SERIALIZE_ATTR(m_destination);
-    C4_SERIALIZE_ATTR(m_velocity);
-    C4_SERIALIZE_ATTR(m_visible);
-    C4_SERIALIZE_ATTR(m_spriteIndices);
-    C4_SERIALIZE_ATTR(m_endCallback);
-    C4_SERIALIZE_ATTR(m_blocksMovement);
-    C4_SERIALIZE_ATTR(m_selectionEnabled);
-    C4_SERIALIZE_ATTR(m_color);
+        /// Does it block movement?
+        /// @return Yes/No.
+        bool blockMovement(bool block);
 
-    C4_SERIALIZE_ATTR(m_path);
+        /// @see Serializeable
+        bool skipSerialization() const;
 
-    C4_SERIALIZE_CHILD(m_animation, "animation");
-    C4_SERIALIZE_CHILD(m_extras,    "extras");
-  }
-
-  bool serializeable() const
-  {
-    return !m_temporary;
-  }
-
-  Extras & getExtras();
-
-  // $TODO move to cpp
-  const std::vector<size_t> & getSpriteIndices() const { return m_spriteIndices; }
-
-  bool blocksMovement() const;
-  void blockMovement(bool block);
-
-  void setTemporary(bool temp);
-  bool isTemporary() const;
-private:
-  bool                               m_temporary;     /// Временный объект?
-  size_t                             m_layer;
-  std::string                        m_name;           ///< Уникальное имя объекта.
-  Point                              m_worldPos;       ///< Текущая позиция на карте мира (в тайлах).
-  Vector2                            m_tileOffset;     ///< Текущее смещение относительно тайла (в пикселях).
-
-  Vector2                            m_startVector;    /// $TODO! comment?
-  Vector2                            m_endVector;
-  float                              m_moveLerp;
-
-  int                                m_direction;        ///< Куда "смотрит" объект.
-  int                                m_destination;      ///< К какому соседнему тайлу движется объект (направление).
-  float                              m_velocity;         ///< Текущая скорость (м/с).
-  bool                               m_visible;
-  std::vector<size_t>                m_spriteIndices;    ///< Индексы спрайтов для всех направлений.
-  Animation                          m_animation;        ///< Анимация для объекта.
-  std::string                        m_endCallback;      ///< $TODO comment
-  bool                               m_blocksMovement;   ///< Через объект нельзя пройти
-  bool                               m_selectionEnabled; ///< Можно ли выбрать объект мышью?
-  TRS::Color                         m_color;            ///< Цвет объекта.
-  Extras                             m_extras;           ///< Дополнительные свойства.
-  std::vector<size_t>                m_path;             ///< Текущий путь.
-};
-
+        /// @see Serializeable
+        void perform(TiXmlElement & element, const SerializeActionType action);
+    private:
+        bool                              m_temporary;
+        size_t                            m_layer;
+        std::string                       m_name;
+        Point                             m_locationPos;
+        Vector2                           m_tileOffset;
+        Vector2                           m_startVector;
+        Vector2                           m_endVector;
+        float                             m_moveLerp;
+        IsoDirection                      m_direction;
+        int                               m_destination;
+        float                             m_speed;
+        bool                              m_visible;
+        std::vector<size_t>               m_spriteIndices;
+        Animation                         m_animation;
+        ILocationObjectMovementListener * m_movementListener;
+        bool                              m_blocksMovement;
+        bool                              m_selectionEnabled;
+        Color                             m_color;
+        Path                              m_path;
+    };
 } // namespace C4
-
-DECLARE_INSTANCE_TYPE_NAME(C4::Object, Object)
-
-*/

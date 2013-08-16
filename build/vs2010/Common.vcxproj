@@ -58,7 +58,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_BIN)\$(Configuration)\</Command>
+      <Command>xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_BIN)\$(Configuration)\
+xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_TOOLS)\$(Configuration)\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -75,7 +76,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_BIN)\$(Configuration)\</Command>
+      <Command>xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_BIN)\$(Configuration)\
+xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_TOOLS)\$(Configuration)\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -85,6 +87,12 @@
     <ClInclude Include="..\..\Common\include\Exceptions\GenericException.hxx" />
     <ClInclude Include="..\..\Common\include\Image\FakeImageLoader.hxx" />
     <ClInclude Include="..\..\Common\include\Image\IImageLoader.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\IImageWriter.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\ImageManipulator.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\TargaHeader.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\TargaHeaderValues.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\TargaWriter.hxx" />
+    <ClInclude Include="..\..\Common\include\Image\TargaLoader.hxx" />
     <ClInclude Include="..\..\Common\include\Logging\ILogListener.hxx" />
     <ClInclude Include="..\..\Common\include\Logging\Logger.hxx" />
     <ClInclude Include="..\..\Common\include\Logging\LogHelpers.hxx" />
@@ -117,6 +125,9 @@
     <ClCompile Include="..\..\Common\src\Configuration\ConfigurationReader.cxx" />
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx" />
     <ClCompile Include="..\..\Common\src\Image\FakeImageLoader.cxx" />
+    <ClCompile Include="..\..\Common\src\Image\ImageManipulator.cxx" />
+    <ClCompile Include="..\..\Common\src\Image\TargaLoader.cxx" />
+    <ClCompile Include="..\..\Common\src\Image\TargaWriter.cxx" />
     <ClCompile Include="..\..\Common\src\Logging\Logger.cxx" />
     <ClCompile Include="..\..\Common\src\Logging\LogMessageFormatter.cxx" />
     <ClCompile Include="..\..\Common\src\Logging\LogSection.cxx" />

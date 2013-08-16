@@ -290,4 +290,35 @@ bool Object::isTemporary() const
 
 } // namespace C4
 
+const std::vector<ISpriteManager::SpriteKey> & getSpriteIds() const { return m_spriteIndices; }
+
+
+
+void perform(TiXmlElement & element, const SerializeActionType action)
+  C4_SERIALIZATION
+  {
+    C4_SERIALIZE_ATTR(m_name);
+    C4_SERIALIZE_CHILD(m_worldPos,   "worldPos");
+    C4_SERIALIZE_CHILD(m_tileOffset, "tileOffset");
+
+    C4_SERIALIZE_CHILD(m_startVector, "startVector");
+    C4_SERIALIZE_CHILD(m_endVector,   "endVector");
+    C4_SERIALIZE_ATTR(m_moveLerp);
+
+    C4_SERIALIZE_ATTR(m_direction);
+    C4_SERIALIZE_ATTR(m_destination);
+    C4_SERIALIZE_ATTR(m_velocity);
+    C4_SERIALIZE_ATTR(m_visible);
+    C4_SERIALIZE_ATTR(m_spriteIndices);
+    C4_SERIALIZE_ATTR(m_endCallback);
+    C4_SERIALIZE_ATTR(m_blocksMovement);
+    C4_SERIALIZE_ATTR(m_selectionEnabled);
+    C4_SERIALIZE_ATTR(m_color);
+
+    C4_SERIALIZE_ATTR(m_path);
+
+    C4_SERIALIZE_CHILD(m_animation, "animation");
+    C4_SERIALIZE_CHILD(m_extras,    "extras");
+  }
+
 */

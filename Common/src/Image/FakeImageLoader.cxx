@@ -8,7 +8,7 @@ namespace Core4
     } 
 
     //------------------------------------------------------------------------------
-    const std::vector<unsigned char> FakeImageLoader::loadTexture(
+    const std::vector<unsigned char> FakeImageLoader::loadImage(
             const std::string & name,
             size_t & width,
             size_t & height)
