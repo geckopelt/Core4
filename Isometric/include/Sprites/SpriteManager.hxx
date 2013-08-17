@@ -58,6 +58,9 @@ namespace Core4
         /// @see ISpriteManager
         size_t getCategoryCount() const;
 
+        /// Set alternative image loader.
+        /// @param loader Image loader.
+        void setImageLoader(IImageLoader * loader);
     private:
         SpriteItem & findSpriteItem(const SpriteKey & key);
         const SpriteKey createSpriteKey(const std::string & spriteName) const;
@@ -68,5 +71,6 @@ namespace Core4
         SpriteCategories m_catInfo;
         Sprites          m_sprites;
         IRenderSystem *  m_renderSystem;
+        IImageLoader *   m_loader;
     };
 } // namespace C4

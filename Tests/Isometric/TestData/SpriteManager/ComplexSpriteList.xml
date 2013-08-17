@@ -1,0 +1,7 @@
+<sprites>	
+	<include name="../../Tests/Isometric/TestData/SpriteManager/SimpleSpriteList.xml"/>
+  	<category name="Category3">
+    		<simple name="SimpleSprite5" texture="Simple2.tga" x="0" y="0" width="64" height="32" alpha="yes"/>
+		<simple name="SimpleSprite6" texture="Simple2.tga" x="64" y="0" width="64" height="32" alpha="yes"/>
+ 	</category>
+</sprites>

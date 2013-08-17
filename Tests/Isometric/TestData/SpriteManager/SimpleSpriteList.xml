@@ -1,0 +1,11 @@
+<sprites>	
+  	<category name="Category1">
+    		<simple name="SimpleSprite1" texture="Simple.tga" x="0" y="0" width="64" height="32" alpha="yes"/>
+		<simple name="SimpleSprite2" texture="Simple.tga" x="64" y="0" width="64" height="32" alpha="yes"/>
+ 	</category>
+	<category name="Category2">
+		<animated name="AnimatedSprite1" texture="Critters/Hero_Walk.tga" alpha="yes" fps="12" startX="0" startY="0" width="64" height="64" stepX="64" stepY="0" numFrames="11"/>
+		<simple name="SimpleSprite3" texture="Simple.tga" x="128" y="0" width="64" height="32" alpha="yes"/>
+		<simple name="SimpleSprite4" texture="Simple2.tga" x="8" y="16" width="128" height="192" alpha="no"/>
+	</category>
+</sprites>

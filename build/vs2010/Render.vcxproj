@@ -16,6 +16,7 @@
     <ClInclude Include="..\..\Render\include\Render\ITexture.hxx" />
     <ClInclude Include="..\..\Render\include\Render\Primitive.hxx" />
     <ClInclude Include="..\..\Render\include\Render\RenderStats.hxx" />
+    <ClInclude Include="..\..\Render\include\Render\TextureLoader.hxx" />
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DRender.hxx" />
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DCommon.hxx" />
     <ClInclude Include="..\..\Render\include\Render\win32\Direct3DTexture.hxx" />
@@ -25,6 +26,7 @@
     <ClCompile Include="..\..\Render\src\Render\Circle.cxx" />
     <ClCompile Include="..\..\Render\src\Render\Primitive.cxx" />
     <ClCompile Include="..\..\Render\src\Render\RenderStats.cxx" />
+    <ClCompile Include="..\..\Render\src\Render\TextureLoader.cxx" />
     <ClCompile Include="..\..\Render\src\Render\win32\Direct3DRender.cxx" />
     <ClCompile Include="..\..\Render\src\Render\win32\Direct3DTexture.cxx" />
     <ClCompile Include="..\..\Render\src\Render\win32\Direct3DVertexBuffer.cxx" />

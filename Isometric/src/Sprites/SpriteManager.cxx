@@ -6,12 +6,13 @@
 #include "Utils/Crc32.hxx"
 #include "Utils/StringUtils.hxx"
 #include "Logging/LogHelpers.hxx"
+#include "Render/TextureLoader.hxx"
 #include "Sprites/SpriteManager.hxx"
 
 namespace Core4
 {
     //----------------------------------------------------------------------------------------------------
-    SpriteManager::SpriteManager() : m_renderSystem(NULL)
+    SpriteManager::SpriteManager() : m_renderSystem(NULL), m_loader(&TextureLoader::getSingleton())
     {
     }
 
@@ -54,10 +55,11 @@ namespace Core4
     const Sprite & SpriteManager::getSprite(const SpriteKey & key)
     {
         Sprite & sprite = findSpriteItem(key).sprite;
-        if (NULL == sprite.getTexture()) // Load texture if not loaded yet
+        
+        // TODO: bad design
+        if (NULL != m_renderSystem && NULL == sprite.getTexture()) // Load texture if not loaded yet
         {
-            // TODO: add a smart loader
-            ITexture * texture = m_renderSystem->getTexture(sprite.getTextureName(), NULL);
+            ITexture * texture = m_renderSystem->getTexture(sprite.getTextureName(), m_loader);
             sprite.setTexture(texture);
         }
         return sprite;    
@@ -114,6 +116,12 @@ namespace Core4
     size_t SpriteManager::getCategoryCount() const
     {
         return m_catInfo.size();
+    }
+
+    //----------------------------------------------------------------------------------------------------
+    void SpriteManager::setImageLoader(IImageLoader * loader)
+    {
+        m_loader = loader;
     }
 
     //----------------------------------------------------------------------------------------------------

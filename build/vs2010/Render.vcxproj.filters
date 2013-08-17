@@ -48,6 +48,9 @@
     <ClInclude Include="..\..\Render\include\Render\Circle.hxx">
       <Filter>include\Render</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Render\include\Render\TextureLoader.hxx">
+      <Filter>include\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Render\src\Render\win32\Direct3DTexture.cxx">
@@ -68,5 +71,6 @@
     <ClCompile Include="..\..\Render\src\Render\Circle.cxx">
       <Filter>src\Render</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Render\src\Render\TextureLoader.cxx" />
   </ItemGroup>
 </Project>

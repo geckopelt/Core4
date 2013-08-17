@@ -3,6 +3,7 @@
 /// @file Factory.hxx
 /// @brief Factory template.
 
+#include <map>
 #include <list>
 
 namespace Core4
