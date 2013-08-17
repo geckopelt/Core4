@@ -53,6 +53,11 @@ namespace Core4
         /// @return Sprite name.
         virtual std::string getSpriteName(const SpriteKey & key) = 0;
 
+        /// Get sprite key by name.
+        /// @param name Sprite name.
+        /// @return Sprite key.
+        virtual const SpriteKey getSpriteKey(const std::string & name) const = 0;
+
         /// Get sprite list.
         /// @return Sprite list reference.
         virtual const Sprites & getSpriteList() const = 0;
@@ -77,6 +82,6 @@ namespace Core4
         /// @return Sprite categories count.
         virtual size_t getCategoryCount() const = 0;
 
-        virtual ~ISpriteManager();
+        virtual ~ISpriteManager() {}
     };
 } // namespace Core4

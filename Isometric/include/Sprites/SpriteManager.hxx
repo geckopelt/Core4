@@ -38,6 +38,9 @@ namespace Core4
         std::string getSpriteName(const SpriteKey & key);
 
         /// @see ISpriteManager
+        const SpriteKey getSpriteKey(const std::string & name) const;
+
+        /// @see ISpriteManager
         const Sprites & getSpriteList() const;
 
         /// @see ISpriteManager

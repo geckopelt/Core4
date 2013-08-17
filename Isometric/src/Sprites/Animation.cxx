@@ -1,3 +1,4 @@
+#include "Utils/Guards.hxx"
 #include "Sprites/Animation.hxx"
 #include "Sprites/SpriteManager.hxx"
 
@@ -7,55 +8,51 @@ namespace Core4
     Animation::Animation() :
         m_maxTime(0),
         m_time(0),
-        m_spriteIndex(0),
-        m_startFrame(0),
-        m_endFrame(0),
-        m_currentFrame(m_startFrame),
+        m_currentFrame(0),
         m_fps(0),
         m_loop(0),
         m_isPlaying(false),
-        m_listener(NULL)
+        m_listener(NULL),
+        m_spriteKey(0)
     {
     }
 
     //--------------------------------------------------------------------------------------------------------
-    Animation::Animation(size_t spriteIndex) :
+    Animation::Animation(const ISpriteManager::SpriteKey & spriteKey) :
         m_maxTime(0),
         m_time(0),
-        m_spriteIndex(0),
-        m_startFrame(0),
-        m_endFrame(0),
-        m_currentFrame(m_startFrame),
+        m_currentFrame(0),
         m_fps(0),
         m_loop(0),
         m_isPlaying(false),
-        m_listener(NULL)
+        m_listener(NULL),
+        m_spriteKey(0)
     {
-        setup(spriteIndex);
+        setup(spriteKey);
     }
 
     //--------------------------------------------------------------------------------------------------------
-    void Animation::setup(size_t spriteIndex)
+    void Animation::setup(const ISpriteManager::SpriteKey & spriteKey)
     {
-        const Sprite & sprite = SpriteManager::getSingleton().getSprite(spriteIndex);
-        m_spriteIndex  = spriteIndex;
-        m_startFrame   = 0;
-        m_endFrame     = sprite.getFrameCount() - 1;
+        const Sprite & sprite = SpriteManager::getSingleton().getSprite(spriteKey);
         m_fps          = sprite.getFPS();
         m_maxTime      = 1000.f / m_fps;
-        m_currentFrame = m_startFrame;
+        m_currentFrame = 0;
         m_isPlaying    = false;
+        m_spriteKey    = spriteKey;
     }
 
     //--------------------------------------------------------------------------------------------------------
     void Animation::update(float dt)
     {
+        const Sprite & sprite = SpriteManager::getSingleton().getSprite(m_spriteKey);
+
         if (!m_isPlaying)
             return;
         m_time += dt;
         if (m_time >= m_maxTime)
         {
-            if (m_currentFrame < m_endFrame)
+            if (m_currentFrame < sprite.getFrameCount() - 1)
             {
                 m_currentFrame++;
             }
@@ -63,7 +60,7 @@ namespace Core4
             {
                 if (m_loop)
                 {
-                    m_currentFrame = m_startFrame;
+                    m_currentFrame = 0;
                 }
                 else
                 {
@@ -82,11 +79,18 @@ namespace Core4
         return m_currentFrame;
     }
 
+    //--------------------------------------------------------------------------------------------------------
+    ISpriteManager::SpriteKey Animation::getSpriteKey() const
+    {
+        return m_spriteKey;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
     void Animation::setCurrentFrame(const size_t frame)
     {
+        const Sprite & sprite = SpriteManager::getSingleton().getSprite(m_spriteKey);
+        CORE4_CHECK(frame < sprite.getFrameCount(), "Animation frame index too large");
         m_currentFrame = frame;
-        if (m_currentFrame > m_endFrame)
-            m_currentFrame = m_endFrame; // Frame index is too large
     }
 
     //--------------------------------------------------------------------------------------------------------
@@ -130,19 +134,11 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------------------
-    const size_t Animation::getSpriteIndex() const
-    {
-        return m_spriteIndex;
-    }
-
-    //--------------------------------------------------------------------------------------------------------
     void Animation::perform(TiXmlElement & element, const SerializeActionType action)
     {
         C4_SERIALIZE_ATTR(m_maxTime);
         C4_SERIALIZE_ATTR(m_time);
-        C4_SERIALIZE_ATTR(m_spriteIndex);
-        C4_SERIALIZE_ATTR(m_startFrame);
-        C4_SERIALIZE_ATTR(m_endFrame);
+        C4_SERIALIZE_ATTR(m_spriteKey);
         C4_SERIALIZE_ATTR(m_currentFrame);
         C4_SERIALIZE_ATTR(m_fps);
         C4_SERIALIZE_ATTR(m_loop);

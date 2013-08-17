@@ -15,6 +15,7 @@ namespace Core4
         South = 4,
         SouthWest = 5,
         West = 6,
-        NorthWest = 7
+        NorthWest = 7,
+        UnknownDirection = 0xFFFFFFFF
     };
 } // namespace Core4

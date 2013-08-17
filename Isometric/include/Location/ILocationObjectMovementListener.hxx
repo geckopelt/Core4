@@ -7,13 +7,15 @@
 
 namespace Core4
 {
+    class LocationMapObject;
+
     /// An interface that provides movement-related callback method.
     struct ILocationObjectMovementListener
     {
         /// Called when location object finshes its movement.
         /// @param object Location object reference.
-        void onMovementFinished(LocationMapObject & object);
+        virtual void onMovementFinished(LocationMapObject * object) = 0;
 
-        virtual ~ILocationMovementListener() {}
+        virtual ~ILocationObjectMovementListener() {}
     };
 } // namespace Core4

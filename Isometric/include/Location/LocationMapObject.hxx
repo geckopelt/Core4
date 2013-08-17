@@ -4,23 +4,24 @@
 /// @brief An object at location map.
 
 #include "Serialization/Serializeable.hxx"
+#include "Sprites/ISpriteManager.hxx"
+#include "Sprites/IAppearanceManager.hxx"
 #include "Sprites/Animation.hxx"
 #include "Location/IsoDirection.hxx"
 #include "Location/ILocationObjectMovementListener.hxx"
 #include "Pathfinding/Path.hxx"
-#include "Sprites/ISpriteMananger.hxx"
 
 namespace Core4
 {
     /// An object (A wall, a tree, a critter, everything).
-    class Object : public Serializeable
+    class LocationMapObject : public Serializeable
     {
     public:
         /// Ctor. Initializes everything.
-        Object();
+        LocationMapObject();
 
         /// Dtor.
-        virtual ~Object();
+        virtual ~LocationMapObject();
 
         /// Update an object.
         /// @param dt Update interval.
@@ -33,10 +34,6 @@ namespace Core4
         /// Get current direection.
         /// @return Current isometric direction.
         IsoDirection getDirection() const;
-
-        /// Get map position.
-        /// @return Map position.
-        const Point &   getWorldPos() const;
 
         /// Get current tile offset, in pixels.
         /// @return Current tile offset, in pixels.
@@ -52,21 +49,24 @@ namespace Core4
         void setAppearance(const std::string & name, const IsoDirection direction);
         
         /// Set simple visual appearance (just a single sprite for all directions).
-        /// @param spriteName Sprite name.
+        /// @param spriteKey Sprite name.
         /// @param direction Initial direction to set.
-        void setSimpleAppearance(const std::string & spriteName, const int direction);
+        void setSimpleAppearance(const std::string & spriteName, const IsoDirection direction);
+
+        /// Set object movement listener.
+        /// @see ILocationObjectMovementListener.
+        /// @param listener Movement listener pointer.
+        void setObjectMovementListener(ILocationObjectMovementListener * listener);
 
         /// Walk to neighbour cell.
         /// @param direction Walk direction.
         /// @param speed Movement speed, cells per second.
-        /// @param listener Object movement callback listener.
-        void moveTo(const int direction, float speed, ILocationObjectMovementListener * listener);
+        void moveTo(const IsoDirection direction, float speed);
 
         /// Walk the path.
         /// @param path A path to walk.
         /// @param speed Movement speed, cells per second.
-        /// @param listener Object movement callback listener.
-        void walkPath(const Path & path, float speed, ILocationObjectMovementListener * listener);
+        void walkPath(const Path & path, float speed);
 
         /// Is it visible?
         /// @return true if visible.
@@ -86,11 +86,11 @@ namespace Core4
 
         /// Set location position.
         /// @param pos Cell to place object in.
-        void setLocationPos(const Point & pos);
+        void setMapPos(const Point & pos);
 
         /// Get location position.
         /// @return Location position.
-        const Point & getLocationPos() const;
+        const Point & getMapPos() const;
 
         /// Set object unique name.
         /// @param name Object name
@@ -129,7 +129,11 @@ namespace Core4
 
         /// Does it block movement?
         /// @return Yes/No.
-        bool blockMovement(bool block);
+        bool blocksMovement() const;
+
+        /// Whether to block other objects movement.
+        /// @param block Yes/No.
+        void blockMovement(bool block);
 
         /// @see Serializeable
         bool skipSerialization() const;
@@ -140,21 +144,21 @@ namespace Core4
         bool                              m_temporary;
         size_t                            m_layer;
         std::string                       m_name;
-        Point                             m_locationPos;
+        Point                             m_mapPos;
         Vector2                           m_tileOffset;
         Vector2                           m_startVector;
         Vector2                           m_endVector;
         float                             m_moveLerp;
-        IsoDirection                      m_direction;
-        int                               m_destination;
+        size_t                            m_direction;   // IsoDirection actually
+        size_t                            m_destination; // IsoDirection actually
         float                             m_speed;
         bool                              m_visible;
-        std::vector<size_t>               m_spriteIndices;
         Animation                         m_animation;
         ILocationObjectMovementListener * m_movementListener;
         bool                              m_blocksMovement;
         bool                              m_selectionEnabled;
         Color                             m_color;
         Path                              m_path;
+        IAppearanceManager::Appearance    m_appearance;
     };
-} // namespace C4
+} // namespace Core4

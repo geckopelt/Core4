@@ -1,324 +1,340 @@
-/* TODO
+#include "Logging/LogHelpers.hxx"
+#include "Location/LocationMapObject.hxx"
+#include "Sprites/AppearanceManager.hxx"
+#include "Tiles/TileBasics.hxx"
 
-#include "C4Object.hxx"
-#include "C4AppearanceManager.hxx"
-#include "C4Render.hxx"
-#include "C4Engine.hxx"
-
-namespace C4
+namespace Core4
 {
-
-Object::Object() :
-  m_temporary(false),
-  m_layer(0),
-  m_moveLerp(0.f),
-  m_direction(UnknownDirection),
-  m_destination(UnknownDirection),
-  m_velocity(.0f),
-  m_visible(false),
-  m_blocksMovement(false),
-  m_selectionEnabled(true)
-{
-  m_direction = UnknownDirection;
-  m_color     = TRS::Color(0, 0, 0, 0);
-}
-
-Object::~Object()
-{
-}
-
-int Object::getDirection() const
-{
-  return m_direction;
-}
-
-void Object::setWorldPos(const Point & pos)
-{
-  m_worldPos = pos;
-}
-
-void Object::update(float dt)
-{
-  m_animation.update(dt);
-
-  if (UnknownDirection != m_destination)
-  {
-    const float deltaMoveLerp = (dt / ( (0 != m_direction %2) ? 500.0f : 1000.0f) ) * m_velocity;
-
-    if (m_moveLerp < 1.f)
-      m_moveLerp += deltaMoveLerp;
-    else
+    //--------------------------------------------------------------------------------------------------------
+    LocationMapObject::LocationMapObject() :
+        m_temporary(false),
+        m_layer(0),
+        m_moveLerp(0),
+        m_direction(UnknownDirection),
+        m_destination(UnknownDirection),
+        m_speed(0),
+        m_visible(false),
+        m_movementListener(NULL),
+        m_blocksMovement(false),
+        m_selectionEnabled(false)
     {
-	    if (m_destination != SouthWest &&
-	        m_destination != SouthEast &&
-	        m_destination != East &&
-	        m_destination != South)
-			{
-			  setWorldPos(Render::getSingleton().tileWalker(m_worldPos, m_destination));
-			}
-			m_startVector = Vector2(0.f, 0.f);
-			m_endVector   = Vector2(0.f, 0.f);
-      m_destination = UnknownDirection; // Прекратили двигаться.
+    }
 
-      if (m_path.empty())
-      {
-        // OK, пришли.
-        Engine::getSingleton().objectCallback(m_endCallback, (*this));
-      }
-      else
-      {
-        // Идем дальше.
-        m_path.pop_back();
+    //--------------------------------------------------------------------------------------------------------
+    LocationMapObject::~LocationMapObject()
+    {
+    }
 
+    //--------------------------------------------------------------------------------------------------------
+    IsoDirection LocationMapObject::getDirection() const
+    {
+        return static_cast<IsoDirection>(m_direction);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setMapPos(const Point & pos)
+    {
+        m_mapPos = pos;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    void LocationMapObject::update(float dt)
+    {
+        const float HorizontalFactor = 1000.0f;
+        const float VeritcalFactor = 500.0f;
+
+        m_animation.update(dt);
+        if (UnknownDirection != m_destination)
+        {
+            const float deltaMoveLerp = (dt / ( (0 != m_direction %2) ? VeritcalFactor : HorizontalFactor) ) * m_speed;
+            if (m_moveLerp < 1.f)
+            {
+                m_moveLerp += deltaMoveLerp;
+            }
+            else
+            {
+                // This trick allows our objects to be correctly displayed one against other
+	            if (m_destination != SouthWest &&
+	                m_destination != SouthEast &&
+	                m_destination != East &&
+	                m_destination != South)
+			    {
+                    setMapPos(TileBasics::getNeighbourCell(m_mapPos, static_cast<IsoDirection>(m_destination)));
+			    }
+			    m_startVector = Vector2(0.f, 0.f);
+			    m_endVector   = Vector2(0.f, 0.f);
+                m_destination = UnknownDirection; // Stop movement.
+
+                if (m_path.empty())
+                {
+                    // OK, we're there.
+                    if (NULL != m_movementListener)
+                    {
+                        m_movementListener->onMovementFinished(this);
+                    }
+                }
+                else
+                {
+                    // Continue walking.
+                    m_path.pop_back();
+                    if (!m_path.empty())
+                    {
+                        moveTo(m_path.at(m_path.size() - 1), m_speed);
+                    }
+                    else
+                    {
+                        if (NULL != m_movementListener)
+                        {
+                            m_movementListener->onMovementFinished(this);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setObjectMovementListener(ILocationObjectMovementListener * listener)
+    {
+        m_movementListener = listener;
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    void LocationMapObject::moveTo(const IsoDirection direction, float speed)
+    {
+        if (UnknownDirection != m_destination)
+            return; // Already moving. TODO: it's quite crappy to check such a thing this way.
+
+        m_destination = direction;
+        m_moveLerp    = 0.f;
+        m_speed       = speed;
+
+        m_startVector = TileBasics::getTileScreenPos(m_mapPos);
+        Point dest    = TileBasics::getNeighbourCell(m_mapPos, static_cast<IsoDirection>(m_destination));
+        m_endVector   = TileBasics::getTileScreenPos(dest);
+
+        if (m_destination == SouthWest ||
+            m_destination == SouthEast ||
+            m_destination == East ||
+            m_destination == South)
+	    {
+	        setMapPos(dest);
+	    }
+	    setDirection(direction);
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    void LocationMapObject::walkPath(const Path & path, float speed)
+    {
+        m_path.clear();
+        for (Path::const_reverse_iterator it = path.rbegin(); it != path.rend(); it++)
+        {
+            m_path.push_back(*it);
+        }
         if (!m_path.empty())
         {
-          moveTo(m_path.at(m_path.size() - 1), m_velocity, m_endCallback);
+            moveTo(m_path.at(m_path.size() - 1), speed);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------
+    const Vector2 LocationMapObject::getTileOffset() const
+    {
+        if (UnknownDirection == m_destination)
+            return Vector2(0.f, 0.f);
+
+        const float startX = m_startVector.x();
+        const float startY = m_startVector.y();
+        const float endX = m_endVector.x();
+        const float endY = m_endVector.y();
+
+        const float x = startX * (1.f - m_moveLerp) + endX * m_moveLerp;
+        const float y = startY * (1.f - m_moveLerp) + endY * m_moveLerp;
+
+        if (m_destination != SouthWest &&
+            m_destination != SouthEast &&
+            m_destination != East &&
+            m_destination != South)
+        {
+            return Vector2(x - startX, y - startY);
         }
         else
         {
-          Engine::getSingleton().objectCallback(m_endCallback, (*this));
+            return Vector2(x - endX, y - endY);
         }
-      }
     }
-  }
-}
 
-void Object::moveTo(const int direction, float velocity, const std::string & endCallback)
-{
-  if (UnknownDirection != m_destination)
-    return; // $TODO already moving
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setDirection(const IsoDirection direction)
+    {
+        if (m_appearance.empty())
+        {
+            CORE4_LOG_WARNING("Warning: can't set direction. Object \"" + m_name + "\" has no apperance");
+            return;
+        }
 
-  m_endCallback = endCallback;
+        m_direction = direction;
+        bool isPlaying = m_animation.isPlaying();
+        bool isLooped  = m_animation.isLooped();
+        size_t frame     = m_animation.getCurrentFrame();
 
-  m_destination = direction;
-  m_moveLerp    = 0.f;
-  m_velocity    = velocity;
+        // Change current animation.
+        const size_t NumDirections = 8;
+        if (NumDirections == m_appearance.size())
+        {
+            const ISpriteManager::SpriteKey spriteKey = m_appearance.at(static_cast<size_t>(m_direction));
+            m_animation.setup(spriteKey);
+        }
+        else
+        {
+            m_animation.setup(m_appearance.at(0));
+        }
 
-  Render & render = Render::getSingleton();
+        if (isPlaying)
+        {
+            m_animation.play(isLooped);
+        }
+        m_animation.setCurrentFrame(frame);
+    }
 
-  m_startVector = render.tilePlotter(m_worldPos);
-  Point dest    = render.tileWalker(m_worldPos, m_destination);
-  m_endVector   = render.tilePlotter(dest);
+    //----------------------------------------------------------------------------------------------------------
+    const Point & LocationMapObject::getMapPos() const
+    {
+        return m_mapPos;
+    }
 
-  if (m_destination == SouthWest ||
-      m_destination == SouthEast ||
-      m_destination == East ||
-      m_destination == South)
-	{
-	  // Сразу устанавливаем новую позицию.
-	  setWorldPos(dest);
-	}
-	setDirection(direction);
-}
+    //----------------------------------------------------------------------------------------------------------
+    Animation & LocationMapObject::getAnimation()
+    {
+        return m_animation;
+    }
 
-void Object::walkPath(const Path & path,
-                      float velocity,
-                      const std::string & endCallback)
-{
-  m_path.clear();
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setAppearance(const std::string & name, const IsoDirection direction)
+    {
+        m_appearance = AppearanceManager::getSingleton().getAppearance(name);
+        setDirection(direction);
+    }
 
-  // Назначаем путь.
-  for (Path::const_reverse_iterator it = path.rbegin(); it != path.rend(); it++)
-  {
-    m_path.push_back(*it);
-  }
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setSimpleAppearance(const std::string & spriteName, const IsoDirection direction)
+    {
+        m_appearance.clear();
+        m_appearance.push_back(SpriteManager::getSingleton().getSpriteKey(spriteName));
+        setDirection(direction);
+    }
 
-  //  Пошли.
-  if (!m_path.empty())
-  {
-    moveTo(m_path.at(m_path.size() - 1), velocity, endCallback);
-  }
+    //----------------------------------------------------------------------------------------------------------
+    const bool LocationMapObject::isVisible() const
+    {
+        return m_visible;
+    }
 
-}
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setVisible(bool visible)
+    {
+        m_visible = visible;
+    }
 
-const Vector2 Object::getTileOffset() const
-{
-  if (UnknownDirection == m_destination)
-    return Vector2(0.f, 0.f);
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setLayer(size_t layer)
+    {
+        m_layer = layer;
+    }
 
-  // $TODO optimize?
-  const float x = m_startVector.x * (1.f - m_moveLerp) + m_endVector.x * m_moveLerp;
-  const float y = m_startVector.y * (1.f - m_moveLerp) + m_endVector.y * m_moveLerp;
+    //----------------------------------------------------------------------------------------------------------
+    const size_t & LocationMapObject::getLayer() const
+    {
+        return m_layer;
+    }
 
-  if (m_destination != SouthWest &&
-      m_destination != SouthEast &&
-      m_destination != East &&
-      m_destination != South)
-  {
-    // Мы физически находимся на старом тайле
-    return Vector2(x - m_startVector.x, y - m_startVector.y);
-  }
-  else
-  {
-    // Мы сразу были перемещены на новый тайл.
-    return Vector2(x - m_endVector.x, y - m_endVector.y);
-  }
-}
+    //----------------------------------------------------------------------------------------------------------
+    const std::string LocationMapObject::getName() const
+    {
+        return m_name;
+    }
 
-//----------------------------------------------------------------------------------------------------------
-void Object::setDirection(const int direction)
-{
-  // $TODO warning, not exception
-  ACTS_CHECK(!m_spriteIndices.empty(), "Object has no appearance"); // Вообще нет никакого apperance!
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setName(const std::string & name)
+    {
+        m_name = name;
+    }
 
-  // Новое направление.
-  m_direction = direction;
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setSelectionEnabled(bool enabled)
+    {
+        m_selectionEnabled = enabled;
+    }
 
-  bool   isPlaying = m_animation.isPlaying();
-  bool   isLooped  = m_animation.isLooped();
-  size_t frame     = m_animation.getCurrentFrame(); // $TODO check! not zero!
+    //----------------------------------------------------------------------------------------------------------
+    bool LocationMapObject::selectionEnabled() const
+    {
+        return m_selectionEnabled;
+    }
 
-  // Меняем текущую анимацию.
-  if (8 == m_spriteIndices.size())
-  {
-    size_t index = m_spriteIndices.at(static_cast<size_t>(m_direction));
-    m_animation.setup(index);
-  }
-  else
-    m_animation.setup(m_spriteIndices.at(0));
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setColor(const Color & color)
+    {
+        m_color = color;
+    }
 
-  if (isPlaying)
-    m_animation.play(isLooped);
-  m_animation.setCurrentFrame(frame);
-}
+    //----------------------------------------------------------------------------------------------------------
+    const Color & LocationMapObject::getColor() const
+    {
+        return m_color;
+    }
 
-const Point & Object::getWorldPos() const
-{
-  return m_worldPos;
-}
+    //----------------------------------------------------------------------------------------------------------
+    bool LocationMapObject::blocksMovement() const
+    {
+        return m_blocksMovement;
+    }
 
-Animation & Object::getAnimation()
-{
-  return m_animation;
-}
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::blockMovement(bool block)
+    {
+        m_blocksMovement = block;
+    }
 
-void Object::setAppearance(const std::string & name, const int direction)
-{
-  const std::vector<size_t> & indices = AppearanceManager::getSingleton().getAppearance(name);
-  m_spriteIndices.assign(indices.begin(), indices.end());
-  setDirection(direction);
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::setTemporary(bool temp)
+    {
+        m_temporary = temp;
+    }
 
-  // looks ugly
-  // m_animation.setCurrentFrame(0);
-}
+    //----------------------------------------------------------------------------------------------------------
+    bool LocationMapObject::isTemporary() const
+    {
+        return m_temporary;
+    }
 
-void Object::setSimpleAppearance(const std::string & spriteName, const int direction)
-{
-  m_spriteIndices.clear();
-  m_spriteIndices.push_back(ACTS_ST(SpriteManager).getSpriteIndex(spriteName));
-  setDirection(direction);
+    //----------------------------------------------------------------------------------------------------------
+    bool LocationMapObject::skipSerialization() const
+    {
+        return isTemporary();
+    }
 
-  // looks ugly
-  // m_animation.setCurrentFrame(0);
-  //  m_animation.setCurrentFrame(0);
-}
+    //----------------------------------------------------------------------------------------------------------
+    void LocationMapObject::perform(TiXmlElement & element, const SerializeActionType action)
+    {
+        C4_SERIALIZE_ATTR(m_name);
+        C4_SERIALIZE_CHILD(m_mapPos, "m_mapPos");
+        C4_SERIALIZE_CHILD(m_tileOffset, "m_tileOffset");
+        C4_SERIALIZE_CHILD(m_startVector, "m_startVector");
+        C4_SERIALIZE_CHILD(m_endVector, "m_endVector");
+        C4_SERIALIZE_ATTR(m_moveLerp);
+        C4_SERIALIZE_ATTR(m_direction);
+        C4_SERIALIZE_ATTR(m_destination);
+        C4_SERIALIZE_ATTR(m_speed);
+        C4_SERIALIZE_ATTR(m_visible);
+        C4_SERIALIZE_ATTR(m_appearance);
+        C4_SERIALIZE_ATTR(m_blocksMovement);
+        C4_SERIALIZE_ATTR(m_selectionEnabled);
+        C4_SERIALIZE_ATTR(m_color);
+        C4_SERIALIZE_CHILD(m_path, "m_path");
+        C4_SERIALIZE_CHILD(m_animation, "m_animation");
+    }
+} // namespace Core4
 
-const bool Object::isVisible() const
-{
-  return m_visible;
-}
-
-void Object::setVisible(bool visible)
-{
-  m_visible = visible;
-}
-
-void Object::setLayer(size_t layer)
-{
-  m_layer = layer;
-}
-
-const size_t & Object::getLayer() const
-{
-  return m_layer;
-}
-
-const std::string Object::getName() const
-{
-  return m_name;
-}
-
-void Object::setName(const std::string & name)
-{
-  m_name = name;
-}
-
-void Object::setSelectionEnabled(bool enabled)
-{
-  m_selectionEnabled = enabled;
-}
-
-bool Object::selectionEnabled() const
-{
-  return m_selectionEnabled;
-}
-
-void Object::setColor(const TRS::Color & color)
-{
-  m_color = color;
-}
-
-const TRS::Color & Object::getColor() const
-{
-  return m_color;
-}
-
-Extras & Object::getExtras()
-{
-  return m_extras;
-}
-
-bool Object::blocksMovement() const
-{
-  return m_blocksMovement;
-}
-
-void Object::blockMovement(bool block)
-{
-  m_blocksMovement = block;
-}
-
-void Object::setTemporary(bool temp)
-{
-  m_temporary = temp;
-}
-
-bool Object::isTemporary() const
-{
-  return m_temporary;
-}
-
-} // namespace C4
-
-const std::vector<ISpriteManager::SpriteKey> & getSpriteIds() const { return m_spriteIndices; }
-
-
-
-void perform(TiXmlElement & element, const SerializeActionType action)
-  C4_SERIALIZATION
-  {
-    C4_SERIALIZE_ATTR(m_name);
-    C4_SERIALIZE_CHILD(m_worldPos,   "worldPos");
-    C4_SERIALIZE_CHILD(m_tileOffset, "tileOffset");
-
-    C4_SERIALIZE_CHILD(m_startVector, "startVector");
-    C4_SERIALIZE_CHILD(m_endVector,   "endVector");
-    C4_SERIALIZE_ATTR(m_moveLerp);
-
-    C4_SERIALIZE_ATTR(m_direction);
-    C4_SERIALIZE_ATTR(m_destination);
-    C4_SERIALIZE_ATTR(m_velocity);
-    C4_SERIALIZE_ATTR(m_visible);
-    C4_SERIALIZE_ATTR(m_spriteIndices);
-    C4_SERIALIZE_ATTR(m_endCallback);
-    C4_SERIALIZE_ATTR(m_blocksMovement);
-    C4_SERIALIZE_ATTR(m_selectionEnabled);
-    C4_SERIALIZE_ATTR(m_color);
-
-    C4_SERIALIZE_ATTR(m_path);
-
-    C4_SERIALIZE_CHILD(m_animation, "animation");
-    C4_SERIALIZE_CHILD(m_extras,    "extras");
-  }
-
-*/
+// todo
+// const std::vector<ISpriteManager::SpriteKey> & getSpriteIds() const { return m_spriteIndices; }

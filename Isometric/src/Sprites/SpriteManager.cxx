@@ -47,7 +47,7 @@ namespace Core4
     //----------------------------------------------------------------------------------------------------
     const Sprite & SpriteManager::getSprite(const std::string & name)
     {
-        return getSprite(Crc32::calculate(name));
+        return getSprite(getSpriteKey(name));
     }
 
     //----------------------------------------------------------------------------------------------------
@@ -69,6 +69,12 @@ namespace Core4
     std::string SpriteManager::getSpriteName(const SpriteKey & key)
     {
         return findSpriteItem(key).name;
+    }
+
+    //----------------------------------------------------------------------------------------------------
+    const ISpriteManager::SpriteKey SpriteManager::getSpriteKey(const std::string & name) const
+    {
+        return Crc32::calculate(name);
     }
 
     //----------------------------------------------------------------------------------------------------

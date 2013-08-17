@@ -10,14 +10,14 @@
     if (action == Serialize) \
     { \
         std::string str; \
-        TypeConverters::toString(what, str); \
+        TypeConverters::toString((what), str); \
         element.SetAttribute(#what, str.c_str()); \
     } \
     else \
     { \
         const char * attr = element.Attribute(#what); \
         CORE4_CHECK(NULL != attr, "Deserialization error. No such attribute: \""#what"\""); \
-        TypeConverters::fromString(attr, what); \
+        TypeConverters::fromString(attr, (what)); \
     }
 
 /// @def C4_SERIALIZE_CHILD()

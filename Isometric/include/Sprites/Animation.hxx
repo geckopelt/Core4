@@ -5,7 +5,9 @@
 
 #include <TinyXML.h>
 #include "Serialization/Serializeable.hxx"
+#include "Sprites/ISpriteManager.hxx"
 #include "Common/IUpdateable.hxx"
+#include <vector>
 
 namespace Core4
 {
@@ -28,10 +30,10 @@ namespace Core4
 
         /// Ctor.
         /// @see setup().
-        Animation(size_t spriteIndex);
+        Animation(const ISpriteManager::SpriteKey & spriteKey);
 
-        /// @param spriteIndex SpriteManager sprite index.
-        void setup(size_t spriteIndex);
+        /// @param spriteKeys Animation frames.
+        void setup(const ISpriteManager::SpriteKey & spriteKey);
 
         /// @see Updateable.
         void update(float dt);
@@ -39,6 +41,10 @@ namespace Core4
         /// Get current animation frame.
         /// @return Current animation frame number.
         size_t getCurrentFrame() const;
+
+        /// Get current sprite key.
+        /// @return Sprite key.
+        ISpriteManager::SpriteKey getSpriteKey() const;
 
         /// Set current animation frame.
         /// @param frame Current animation frame number.
@@ -67,22 +73,16 @@ namespace Core4
         /// @return Yes/No.
         bool isLooped() const;
 
-        /// Get animated sprite's index. @see SpriteManager.
-        /// @return Animated sprite index.
-        const size_t getSpriteIndex() const;
-
         /// @see Serializeable
         void perform(TiXmlElement & element, const SerializeActionType action);
     private:
-        float      m_maxTime;
-        float      m_time;
-        size_t     m_spriteIndex;
-        size_t     m_startFrame;
-        size_t     m_endFrame;
-        size_t     m_currentFrame;
-        size_t     m_fps;
-        bool       m_loop;
-        bool       m_isPlaying;
-        Listener * m_listener;
+        float                     m_maxTime;
+        float                     m_time;
+        size_t                    m_currentFrame;
+        size_t                    m_fps;
+        bool                      m_loop;
+        bool                      m_isPlaying;
+        Listener *                m_listener;
+        ISpriteManager::SpriteKey m_spriteKey;
     };
 } // namespace Core4
