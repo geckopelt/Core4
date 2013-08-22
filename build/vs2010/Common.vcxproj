@@ -114,6 +114,7 @@ xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_TOOLS)\$(Configuration)\
     <ClInclude Include="..\..\Common\include\Types\Color.hxx" />
     <ClInclude Include="..\..\Common\include\Types\Point.hxx" />
     <ClInclude Include="..\..\Common\include\Types\PointBase.hxx" />
+    <ClInclude Include="..\..\Common\include\Types\Rect.hxx" />
     <ClInclude Include="..\..\Common\include\Types\Vector2.hxx" />
     <ClInclude Include="..\..\Common\include\Utils\Crc32.hxx" />
     <ClInclude Include="..\..\Common\include\Utils\Factory.hxx" />
@@ -139,6 +140,7 @@ xcopy /Y "$(CORE4_3DPARTY)\zlib\zlib1.dll" $(CORE4_DEST_TOOLS)\$(Configuration)\
     <ClCompile Include="..\..\Common\src\Serialization\TypeConverters.cxx" />
     <ClCompile Include="..\..\Common\src\Serialization\XmlDocument.cxx" />
     <ClCompile Include="..\..\Common\src\Types\Color.cxx" />
+    <ClCompile Include="..\..\Common\src\Types\Rect.cxx" />
     <ClCompile Include="..\..\Common\src\Utils\Crc32.cxx" />
     <ClCompile Include="..\..\Common\src\Utils\StringUtils.cxx" />
   </ItemGroup>

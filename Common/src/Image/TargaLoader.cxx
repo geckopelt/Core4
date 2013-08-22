@@ -24,10 +24,9 @@ namespace Core4
             size_t & width,
             size_t & height)
     {
-        size_t foo = sizeof(TargaHeader);
-        size_t bar = sizeof(unsigned short);
-
         std::ifstream stream(name, std::ios_base::binary);
+
+        // TODO: more error handling!
 
         TargaHeader header;
         stream.read((char*)&header, sizeof(TargaHeader));

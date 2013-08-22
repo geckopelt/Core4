@@ -71,6 +71,8 @@
     <ClCompile Include="..\..\Render\src\Render\Circle.cxx">
       <Filter>src\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Render\src\Render\TextureLoader.cxx" />
+    <ClCompile Include="..\..\Render\src\Render\TextureLoader.cxx">
+      <Filter>src\Render</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

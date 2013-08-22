@@ -7,6 +7,7 @@ namespace Core4
 {
     const float TileBasics::TileWidth  = 64;
     const float TileBasics::TileHeight = 32;
+    const float TileBasics::TileAspectRatio = TileBasics::TileHeight / TileBasics::TileWidth;
 
     //--------------------------------------------------------------------------------------------------------
     const Point TileBasics::getNeighbourCell(const Point & from, IsoDirection direction)

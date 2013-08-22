@@ -74,6 +74,17 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------------------
+    void LocationMap::getCellHeights(const Point & cell, std::vector<float> & heights)
+    {
+        heights.resize(IRenderSystem::NumCorners);
+        for (size_t i = 0; i < IRenderSystem::NumCorners; i++)
+        {
+            const LocationMapNode & node = getNode(getNodePos(cell, i));
+            heights[i] = node.getHeight();
+        }
+    }
+  
+    //--------------------------------------------------------------------------------------------------------
     LocationMapNode & LocationMap::getCellNode(const Point & cell, size_t cornerIndex)
     {
         Point pos = getNodePos(cell, cornerIndex);
@@ -104,7 +115,8 @@ namespace Core4
     //--------------------------------------------------------------------------------------------------------
     const LocationMap::ObjectIndexList & LocationMap::getObjectsAtCell(const Point & cell) const
     {
-        return m_objectIndexLookup.at(cell.y() * m_width + cell.x());
+        const size_t offset = cell.y() * m_width + cell.x();
+        return m_objectIndexLookup.at(offset);
     }
 
     //--------------------------------------------------------------------------------------------------------

@@ -12,7 +12,7 @@
 namespace Core4
 {
     /// Sprite animation class.
-    class Animation : public Updateable, public Serializeable
+    class Animation : public IUpdateable, public Serializeable
     {
     public:
         /// Animation listener callbacks.
@@ -35,7 +35,7 @@ namespace Core4
         /// @param spriteKeys Animation frames.
         void setup(const ISpriteManager::SpriteKey & spriteKey);
 
-        /// @see Updateable.
+        /// @see IUpdateable.
         void update(float dt);
 
         /// Get current animation frame.

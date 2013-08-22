@@ -16,6 +16,8 @@ namespace Core4
     {
         typedef unsigned int SpriteKey; ///< Unique sprite key identifier
 
+        static const SpriteKey InvalidSpriteKey = 0; ///< Invalid sprite key
+
         /// Sprite item.
         struct SpriteItem
         {

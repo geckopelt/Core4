@@ -1,12 +1,12 @@
 #pragma once
 
+/// @file App.hxx
+/// @brief Platform-independent application stuff
+
 #define _USE_32BIT_TIME_T
 #include <stdlib.h>
 
 #include "Render/IRenderSystem.hxx"
-
-/// @file App.hxx
-/// @brief Platform-independent application stuff
 
 namespace Core4
 {
@@ -36,8 +36,5 @@ namespace Core4
     protected:
         unsigned long m_prevUpdate;
         IRenderSystem * m_renderSystem;
-
-        // $TMP
-        ITexture * m_testTexture;
     };
 } // namespace Core4

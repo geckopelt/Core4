@@ -1,0 +1,6 @@
+<sprites>
+    <category name="Tiles">
+        <simple name="DesertTile1" texture="../../App/data/images/tileset_desert.tga" x="0" y="0" width="64" height="32" alpha="no" />
+        <!-- TODO: make more grass tile sprites -->
+    </category>
+</sprites>

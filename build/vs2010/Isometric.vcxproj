@@ -12,13 +12,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Isometric\include\Common\IUpdateable.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Debug\DebugRenderer.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Debug\DebugRenderingUtils.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Debug\IDebugRenderer.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Facade\EngineFacade.hxx" />
     <ClInclude Include="..\..\Isometric\include\Light\Light.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Location\BoundingBox.hxx" />
     <ClInclude Include="..\..\Isometric\include\Location\ILocationObjectMovementListener.hxx" />
     <ClInclude Include="..\..\Isometric\include\Location\IsoDirection.hxx" />
     <ClInclude Include="..\..\Isometric\include\Location\LocationMap.hxx" />
     <ClInclude Include="..\..\Isometric\include\Location\LocationMapCell.hxx" />
     <ClInclude Include="..\..\Isometric\include\Location\LocationMapNode.hxx" />
     <ClInclude Include="..\..\Isometric\include\Location\LocationMapObject.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Location\LocationRenderer.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Pathfinding\DirectionFinder.hxx" />
     <ClInclude Include="..\..\Isometric\include\Pathfinding\Path.hxx" />
     <ClInclude Include="..\..\Isometric\include\Sprites\Animation.hxx" />
     <ClInclude Include="..\..\Isometric\include\Sprites\AppearanceManager.hxx" />
@@ -28,14 +35,22 @@
     <ClInclude Include="..\..\Isometric\include\Sprites\SpriteDescriptionsLoader.hxx" />
     <ClInclude Include="..\..\Isometric\include\Sprites\SpriteFrame.hxx" />
     <ClInclude Include="..\..\Isometric\include\Sprites\SpriteManager.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Tiles\MouseMap.hxx" />
+    <ClInclude Include="..\..\Isometric\include\Tiles\MouseMapDirections.hxx" />
     <ClInclude Include="..\..\Isometric\include\Tiles\TileBasics.hxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Isometric\src\Debug\DebugRenderer.cxx" />
+    <ClCompile Include="..\..\Isometric\src\Debug\DebugRenderingUtils.cxx" />
+    <ClCompile Include="..\..\Isometric\src\Facade\EngineFacade.cxx" />
     <ClCompile Include="..\..\Isometric\src\Light\Light.cxx" />
+    <ClCompile Include="..\..\Isometric\src\Location\BoundingBox.cxx" />
     <ClCompile Include="..\..\Isometric\src\Location\LocationMap.cxx" />
     <ClCompile Include="..\..\Isometric\src\Location\LocationMapCell.cxx" />
     <ClCompile Include="..\..\Isometric\src\Location\LocationMapNode.cxx" />
     <ClCompile Include="..\..\Isometric\src\Location\LocationMapObject.cxx" />
+    <ClCompile Include="..\..\Isometric\src\Location\LocationRenderer.cxx" />
+    <ClCompile Include="..\..\Isometric\src\Pathfinding\DirectionFinder.cxx" />
     <ClCompile Include="..\..\Isometric\src\Pathfinding\Path.cxx" />
     <ClCompile Include="..\..\Isometric\src\Sprites\Animation.cxx" />
     <ClCompile Include="..\..\Isometric\src\Sprites\AppearanceManager.cxx" />
@@ -43,6 +58,7 @@
     <ClCompile Include="..\..\Isometric\src\Sprites\SpriteDescriptionsLoader.cxx" />
     <ClCompile Include="..\..\Isometric\src\Sprites\SpriteFrame.cxx" />
     <ClCompile Include="..\..\Isometric\src\Sprites\SpriteManager.cxx" />
+    <ClCompile Include="..\..\Isometric\src\Tiles\MouseMap.cxx" />
     <ClCompile Include="..\..\Isometric\src\Tiles\TileBasics.cxx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -89,7 +105,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_3DPARTY)\TinyXML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Input\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -106,7 +122,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_3DPARTY)\TinyXML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Input\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

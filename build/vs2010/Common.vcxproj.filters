@@ -168,6 +168,9 @@
     <ClInclude Include="..\..\Common\include\Image\ImageManipulator.hxx">
       <Filter>include\Image</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\include\Types\Rect.hxx">
+      <Filter>include\Types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\src\Exceptions\GenericException.cxx">
@@ -226,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\src\Image\ImageManipulator.cxx">
       <Filter>src\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\src\Types\Rect.cxx">
+      <Filter>src\Types</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

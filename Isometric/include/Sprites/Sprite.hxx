@@ -58,9 +58,7 @@ namespace Core4
         bool hasTexture() const;
     protected:
         friend class SpriteManager;
-
-        // TODO:
-        // friend class Render;
+        friend class LocationRenderer;
 
         ITexture * getTexture() const;
         void setTexture(ITexture * texture);

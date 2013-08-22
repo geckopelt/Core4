@@ -19,3 +19,4 @@ namespace Core4
         UnknownDirection = 0xFFFFFFFF
     };
 } // namespace Core4
+

@@ -4,7 +4,10 @@
 #include "Configuration/Configuration.hxx"
 #include "Logging/LogHelpers.hxx"
 #include "Logging/TextFileLogger.hxx"
-#include "Win32/Win32App.hxx"
+#include "Serialization/Serializeable.hxx" // TODO 
+#include "Input/InputController.hxx"
+#include "win32/ButtonTranslator.hxx"
+#include "win32/Win32App.hxx"
 #include "BuildInfo.hxx"
 using namespace Core4;
 
@@ -13,6 +16,8 @@ namespace
     //------------------------------------------------------------------------------------------------------------
     LRESULT CALLBACK wndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
+        InputController & input = InputController::getSingleton();
+
         switch(message)
         {
             case WM_DESTROY:
@@ -23,53 +28,56 @@ namespace
             case WM_ACTIVATE:
                 CORE4_SINGLE(Win32App).setActive(LOWORD(wParam) != WA_INACTIVE);
                 break;
+                */
 
             case WM_KEYDOWN:
-                CORE4_SINGLE(C4::GUI).onKeyDown(C4::translateButton(wParam));
+                input.onKeyDown(ButtonTranslator::translateButton(wParam));
                 break;
 
+            /* TODO
             case WM_CHAR:
                 CORE4_SINGLE(C4::GUI).onChar(wParam);
                 break;
+            */
 
             case WM_KEYUP:
-                CORE4_SINGLE(C4::GUI).onKeyUp(C4::translateButton(wParam));
+                input.onKeyUp(ButtonTranslator::translateButton(wParam));
                 break;
 
             case WM_LBUTTONDOWN:
-                CORE4_SINGLE(C4::GUI).onKeyDown(C4::Buttons::MouseLB);
+                input.onKeyDown(Buttons::MouseLB);
                 break;
 
             case WM_LBUTTONUP:
-                CORE4_SINGLE(C4::GUI).onKeyUp(C4::Buttons::MouseLB);
+                input.onKeyUp(Buttons::MouseLB);
                 break;
 
             case WM_RBUTTONDOWN:
-                CORE4_SINGLE(C4::GUI).onKeyDown(C4::Buttons::MouseRB);
+                input.onKeyDown(Buttons::MouseRB);
                 break;
 
             case WM_RBUTTONUP:
-                CORE4_SINGLE(C4::GUI).onKeyUp(C4::Buttons::MouseRB);
+                input.onKeyUp(Buttons::MouseRB);
                 break;
 
             case WM_MBUTTONDOWN:
-                CORE4_SINGLE(C4::GUI).onKeyDown(C4::Buttons::MouseMB);
+                input.onKeyDown(Buttons::MouseMB);
                 break;
 
             case WM_MBUTTONUP:
-                CORE4_SINGLE(C4::GUI).onKeyUp(C4::Buttons::MouseMB);
+                input.onKeyUp(Buttons::MouseMB);
                 break;
 
             case WM_MOUSEWHEEL:
                 if (HIWORD(wParam) > 0 )
-                    CORE4_SINGLE(C4::GUI).onKeyDown(C4::Buttons::MWheelUp);
+                    input.onKeyDown(Buttons::MWheelUp);
                 else
-                    CORE4_SINGLE(C4::GUI).onKeyDown(C4::Buttons::MWheelDown);
+                    input.onKeyDown(Buttons::MWheelDown);
                 break;
 
             case WM_MOUSEMOVE:
-                CORE4_SINGLE(C4::GUI).onMouseMove(C4::Vector2(LOWORD(lParam), HIWORD(lParam)));
-                break; */
+                input.onMouseMove(Vector2(LOWORD(lParam), HIWORD(lParam)));
+                break; 
 
             default:
                 return DefWindowProc(hwnd, message, wParam, lParam);

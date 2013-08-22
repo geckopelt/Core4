@@ -1,3 +1,7 @@
+Optimize Isometric Renderer
+Adjust light distance calculation
+SpriteManager: add variables
+
 Programmatically generate tile textures (multiple textures each, plus transitional ones):
 grass
 sand

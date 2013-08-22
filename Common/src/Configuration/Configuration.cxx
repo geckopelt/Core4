@@ -4,7 +4,7 @@ namespace Core4
 {
     // Default values
     //------------------------------------------------------------------------------
-    Configuration::Configuration() : m_screenWidth(640), m_screenHeight(480), m_bpp(16), m_windowed(true)
+    Configuration::Configuration() : m_screenWidth(800), m_screenHeight(600), m_bpp(16), m_windowed(true)
     {
         m_logPath = ".\\log.txt";
         m_appName = "Core4";

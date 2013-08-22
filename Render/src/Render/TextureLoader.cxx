@@ -33,8 +33,8 @@ namespace Core4
 
         std::auto_ptr<IImageLoader> loader(ImageLoaderFactory::getSingleton().create(extension));
         CORE4_CHECK(NULL != loader.get(), "Don't know how to load \"" + extension + "\" images");
-        loader->loadImage(name, width, height);
         CORE4_LOG_INFO("Loading texture: \"" + name + "\"");
+        return loader->loadImage(name, width, height);
     }
 } // namespace Core4
 

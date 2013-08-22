@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{f8d8c5e8-689d-4737-aba3-a86326e27eb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{5303735c-052a-4b35-9a3c-2eaf2f1654ea}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Input\include\Input\InputController.hxx">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input\include\Input\Buttons.hxx">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input\include\Input\IInputListener.hxx">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Input\src\Input\InputController.cxx">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

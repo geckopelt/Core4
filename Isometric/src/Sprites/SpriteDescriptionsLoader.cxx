@@ -5,6 +5,8 @@
 #include "Logging/LogHelpers.hxx"
 #include "Sprites/SpriteDescriptionsLoader.hxx"
 
+// TODO: legacy говнокод. Refactor!
+
 namespace Core4
 {
     namespace

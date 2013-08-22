@@ -6,12 +6,12 @@
 namespace Core4
 {
     /// An updateable interface.
-    struct Updateable
+    struct IUpdateable
     {
         /// Update something.
         /// @param dt Update interval, in ms.
         virtual void update(float dt) = 0;
 
-        virtual ~Updateable() {}
+        virtual ~IUpdateable() {}
     };
 } // namespace Core4

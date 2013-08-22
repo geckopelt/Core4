@@ -14,7 +14,7 @@
 namespace Core4
 {
     /// Location Map
-    class LocationMap : public Serializeable, public Updateable
+    class LocationMap : public Serializeable, public IUpdateable
     {
     public:
         static const int LocationMapFormatVersion = 3; //< Map format version ID, for serialization purposes. 
@@ -58,7 +58,12 @@ namespace Core4
         /// @return Location map node reference.
         LocationMapNode & getCellNode(const Point & cell, size_t cornerIndex);
 
-        // @see Updateable
+        /// Get cell corner heights.
+        /// @param cell Cell position.
+        /// @param heights Cell corner heights.
+        void getCellHeights(const Point & cell, std::vector<float> & heights);
+
+        // @see IUpdateable
         void update(float dt);
 
         /// Check object existense.
@@ -119,12 +124,16 @@ namespace Core4
         /// @return Ambient light color.
         const Color & getAmbientLight() const;
 
+        /// Get node position by cell position.
+        /// @param cell Map cell.
+        /// @param nodeIndex node index
+        /// @return Node position.
+        const Point getNodePos(const Point & cell, size_t nodeIndex) const;
+
         /// @see Serializeable
         void perform(TiXmlElement & element, const SerializeActionType action);
     private:
         typedef std::vector<ObjectIndexList> ObjectIndexLookup; ///< A width * height lookup array containing each cell objects indices.
-
-        const Point getNodePos(const Point & cell, size_t nodeIndex) const;
 
         size_t                                 m_width;
         size_t                                 m_height;

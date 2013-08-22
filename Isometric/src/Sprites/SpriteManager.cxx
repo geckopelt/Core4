@@ -1,7 +1,3 @@
-// #include "C4XmlDocument.hxx"
-// #include "C4FileSystem.hxx"
-// #include "C4TextureResource.hxx"
-
 #include "Utils/Guards.hxx"
 #include "Utils/Crc32.hxx"
 #include "Utils/StringUtils.hxx"

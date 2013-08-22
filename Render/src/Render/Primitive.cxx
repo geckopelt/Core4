@@ -3,6 +3,12 @@
 namespace Core4
 {
     //------------------------------------------------------------------------------
+    void Primitive::clear()
+    {
+        m_lines.clear();
+    }
+
+    //------------------------------------------------------------------------------
     void Primitive::addLine(const Line & line)
     {
         m_lines.push_back(line);

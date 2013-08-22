@@ -13,6 +13,12 @@
     <Filter Include="src\win32">
       <UniqueIdentifier>{86bc613a-2ec2-4a2c-a8a6-c09ed523932e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{117be5aa-0da3-4813-a47a-a95f3bb81432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data\sprites">
+      <UniqueIdentifier>{8b01a63f-76a8-4c14-8d82-c1419ef15cc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\App\include\win32\Win32App.hxx">
@@ -27,6 +33,9 @@
     <ClInclude Include="..\..\App\include\App.hxx">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\App\include\win32\ButtonTranslator.hxx">
+      <Filter>include\win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\App\src\win32\Win32App.cxx">
@@ -38,5 +47,13 @@
     <ClCompile Include="..\..\App\src\App.cxx">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\App\src\win32\ButtonTranslator.cxx">
+      <Filter>src\win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\App\data\sprites\SpriteList.xml">
+      <Filter>data\sprites</Filter>
+    </None>
   </ItemGroup>
 </Project>

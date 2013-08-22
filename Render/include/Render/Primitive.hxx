@@ -22,10 +22,12 @@ namespace Core4
 
         /// Draw the primitive.
         void draw(IRenderSystem * renderSystem);
-    protected:
+
+        /// Clear all the lines.
+        void clear();
+
         /// Add a line.
         void addLine(const Line & line);
-
     private:
         std::list<Line> m_lines;
     };
