@@ -13,6 +13,7 @@ namespace Core4
             size_t & width,
             size_t & height)
     {
+        // TODO: move these indices elsewhere 
         const size_t BytesPerPixel = 4;
         const size_t AlphaIndex    = 3;
         const size_t RedIndex      = 2;
@@ -24,8 +25,9 @@ namespace Core4
         colorValue[GreenIndex] = m_color.green();
         colorValue[BlueIndex]  = m_color.blue();
 
-        width = 64;
-        height = 32;
+        // TMP!
+        width = 1024;
+        height = 1024;
 
         std::vector<unsigned char> textureData(width * height * BytesPerPixel);
         for (size_t i = 0; i < width * height; i++)

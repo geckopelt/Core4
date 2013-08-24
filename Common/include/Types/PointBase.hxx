@@ -34,25 +34,40 @@ namespace Core4
 
         bool operator < (const PointBase & other) const
         {
+            if (this == &other)
+                return false;
             return m_x < other.m_x ? true : m_y < other.m_y;
         }
 
         bool operator < (PointBase & other)
         {
+            if (this == &other)
+                return false;
 	        return (*this) < other;
         }
 
         bool operator == (const PointBase & other) const
         {
+            if (this == &other)
+                return true;
 	        return (other.m_x == m_x && other.m_y == m_y);
         }
 
         bool operator == (PointBase & other)
         {
+            if (this == &other)
+                return true;
 	        return (*this == other);
         }
 
-        /// @see Serializable
+        PointBase & operator += (const PointBase & other) 
+        {
+            m_x += other.m_x;
+            m_y += other.m_y;
+            return *this;
+        }
+
+        /// @see Serializeable
         void perform(TiXmlElement & element, const SerializeActionType action)
         {
             C4_SERIALIZE_ATTR(m_x);

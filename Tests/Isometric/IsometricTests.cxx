@@ -9,6 +9,7 @@ using namespace Core4;
 #include "SpriteManagerTests.hxx"
 #include "PathTests.hxx"
 #include "LocationMapTests.hxx"
+#include "MouseMapTests.hxx"
 
 //----------------------------------------------------------------------------------------------------------
 int main(int argc, char* argv[])

@@ -21,9 +21,9 @@ namespace Core4
 
         /// Convert screen coords into map cell coords.
         /// @param screen Screen position, in pixels.
-        /// @param renderer Renderer used.
+        /// @param scrollPos World scroll position, in pixels.
         /// @return Cell position.
-        const Point screenToTile(const Vector2 & screen, const LocationRenderer & renderer) const;
+        const Point screenToTile(const Vector2 & screen, const Vector2 & scrollPos) const;
     private:
         std::vector<IsoDirection> m_mouseMap;
     };

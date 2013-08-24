@@ -4,6 +4,7 @@
 #include "Logging/TextFileLogger.hxx"
 #include "Logging/Logger.hxx"
 #include "Render/win32/Direct3DRender.hxx"
+#include "Utils/StringUtils.hxx"
 
 namespace Core4
 {
@@ -31,6 +32,14 @@ namespace Core4
     {
         App::render();
 
+        // TMP
+        static unsigned long prevUpdate = ::timeGetTime();
+
+        if (::timeGetTime() - prevUpdate > 1000)
+        {
+            ::SetWindowTextA(m_hWnd, (StringUtils::intToString(m_renderSystem->getStats().getFPS()) + " fps").c_str());
+            prevUpdate = ::timeGetTime();
+        }
         // TODO: platform-specific render
         /* TODO
         if (NULL != m_renderSystem)

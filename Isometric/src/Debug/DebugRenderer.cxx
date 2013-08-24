@@ -2,6 +2,8 @@
 #include "Debug/DebugRenderer.hxx"
 #include "Debug/DebugRenderingUtils.hxx"
 
+// TODO: too slow!
+
 namespace Core4
 {
     //------------------------------------------------------------------------------------------------------------

@@ -102,7 +102,7 @@ namespace Core4
 	    virtual void setFogColor(const Color & color) = 0;
 
         /// Get a texture pointer.
-        /// Loads a texture if not loaded..
+        /// Loads a texture if not loaded. Texture is never loaded twice.
         /// @param name Texture filename.
         /// @param loader Loader to use.
         /// @return Texture pointer.

@@ -7,5 +7,6 @@
     <ClInclude Include="..\..\Tests\Isometric\SpriteManagerTests.hxx" />
     <ClInclude Include="..\..\Tests\Isometric\LocationMapTests.hxx" />
     <ClInclude Include="..\..\Tests\Isometric\PathTests.hxx" />
+    <ClInclude Include="..\..\Tests\Isometric\MouseMapTests.hxx" />
   </ItemGroup>
 </Project>

@@ -20,12 +20,10 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------------------
-    const Point MouseMap::screenToTile(const Vector2 & screen, const LocationRenderer & renderer) const
+    const Point MouseMap::screenToTile(const Vector2 & screen, const Vector2 & scrollPos) const
     {
         const size_t TileWidth  = static_cast<size_t>(TileBasics::TileWidth);
         const size_t TileHeight = static_cast<size_t>(TileBasics::TileHeight);
-
-        const Vector2 & scrollPos = renderer.getScrollPos();
 
         // 1. Screen to world
         float x(screen.x() + scrollPos.x());
@@ -69,7 +67,7 @@ namespace Core4
 		    coarseX--;
 		    map = TileBasics::getNeighbourCell(map, East);
 	    }
-	    //move west
+	    // move west
 	    while (coarseX < 0)
 	    {
 		    coarseX++;

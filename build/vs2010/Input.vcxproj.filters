@@ -7,21 +7,27 @@
     <Filter Include="include">
       <UniqueIdentifier>{5303735c-052a-4b35-9a3c-2eaf2f1654ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Input">
+      <UniqueIdentifier>{1da83d30-fd40-4646-b8f9-6beccea24f1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Input">
+      <UniqueIdentifier>{7b3e6170-4a00-40ca-88ee-82d9d0a7a725}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Input\include\Input\InputController.hxx">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Input\include\Input\Buttons.hxx">
-      <Filter>include</Filter>
+      <Filter>include\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Input\include\Input\InputController.hxx">
+      <Filter>include\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Input\include\Input\IInputListener.hxx">
-      <Filter>include</Filter>
+      <Filter>include\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Input\src\Input\InputController.cxx">
-      <Filter>src</Filter>
+      <Filter>src\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

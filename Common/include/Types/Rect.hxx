@@ -45,6 +45,9 @@ namespace Core4
         /// Normalize point against this rect.
         /// @param pt Point to normalize
         void normalizePoint(Vector2 & pt) const;
+
+        /// Operator += 
+        Rect & operator += (const Vector2 & vec); 
     private:
         Vector2 m_upperLeft;
         Vector2 m_size;

@@ -7,7 +7,7 @@ namespace Core4
     namespace
     {
         /// Magical Fast Inverse Square Root (Carmack's Reverse)
-        float invSqrt(float x)
+        inline float invSqrt(float x)
         {
             float halfX = x * .5f;
             int i = *(int*)&x;
@@ -17,7 +17,7 @@ namespace Core4
             return x;
         }
 
-        void normalizeColorComponent(int & cc)
+        inline void normalizeColorComponent(int & cc)
         {
             if (cc < 0)
                 cc = 0;
@@ -71,8 +71,8 @@ namespace Core4
         if (NULL == m_locationMap)
             return;
 
-        if (NULL != m_debugRenderer)
-            m_debugRenderer->onNewFrame();
+        // if (NULL != m_debugRenderer)
+        //     m_debugRenderer->onNewFrame();
 
         const size_t locationWidth  = m_locationMap->getWidth();
         const size_t locationHeight = m_locationMap->getHeight();
@@ -144,9 +144,9 @@ namespace Core4
 		        {
                     const Color & base = m_locationMap->getNode(m_locationMap->getNodePos(Point(x, y), i)).getColor();
 
-		            int r(0), g(0), b(0), f(0);
                     Color calculated;
 		            calcLightsAtPoint(Vector2(worldPos.x() + offsetsX[i], worldPos.y() + offsetsY[i]), calculated);
+                    int r(calculated.red()), g(calculated.green()), b(calculated.blue()), f(calculated.alpha());
 
 		            r += base.red();
 		            g += base.green();
@@ -181,15 +181,15 @@ namespace Core4
 		        m_approxCellLighting[y * locationWidth + x] = Color(avgR >> 2, avgG >> 2, avgB >> 2, avgF >> 2);
                 m_renderSystem->drawIsoTile(tilePos.x(), tilePos.y(), spriteToRender, &heights[0], sprite.getTexture()); 
 
-                if (NULL != m_debugRenderer)
-                    m_debugRenderer->onTileRendered(tilePos, cell);
+                // if (NULL != m_debugRenderer)
+                    // m_debugRenderer->onTileRendered(tilePos, cell);
 
             }
 	    }
 
         // TODO!
-        if (NULL != m_debugRenderer)
-            m_debugRenderer->onRender(m_renderSystem);
+        // if (NULL != m_debugRenderer)
+            // m_debugRenderer->onRender(m_renderSystem);
         
         // TODO: ensure LocationMap is updated first
 
@@ -462,10 +462,10 @@ namespace Core4
 
         const Color & ambient = m_locationMap->getAmbientLight();
 
-        unsigned short red   = ambient.red();
-        unsigned short green = ambient.green();
-        unsigned short blue  = ambient.blue();
-        unsigned short fog   = ambient.alpha();
+        int red   = ambient.red();
+        int green = ambient.green();
+        int blue  = ambient.blue();
+        int fog   = ambient.alpha();
 
         const SerializeableVector<Light> & lights = m_locationMap->getLights();
         for (SerializeableVector<Light>::const_iterator it = lights.begin(); it != lights.end(); it++)
@@ -480,11 +480,20 @@ namespace Core4
             float distY = (world.y() - lightPos.y()) / TileBasics::TileAspectRatio;
             float inv = invSqrt(distX * distX + distY * distY);
 
-            red   += (int)(light.red()   * light.getRange() * inv);
-            green += (int)(light.green() * light.getRange() * inv);
-            blue  += (int)(light.blue()  * light.getRange() * inv);
-            fog   += (int)(light.fog()   * light.getRange() * inv);
+            if (fabs(distX) < light.getRange() &&
+                fabs(distY) < light.getRange() / TileBasics::TileAspectRatio)
+            {
+                red   += (int)(light.red()   * light.getRange() * inv);
+                green += (int)(light.green() * light.getRange() * inv);
+                blue  += (int)(light.blue()  * light.getRange() * inv);
+                fog   += (int)(light.fog()   * light.getRange() * inv);
+            }
         }
+
+        normalizeColorComponent(red);
+        normalizeColorComponent(green);
+        normalizeColorComponent(blue);
+        normalizeColorComponent(fog);
         dest = Color(red, green, blue, fog);
     }
 

@@ -75,4 +75,14 @@ namespace Core4
 
         pt = Vector2(x, y);
     }
+
+    //------------------------------------------------------------------------------
+    Rect & Rect::operator += (const Vector2 & vec)
+    {
+        float x = m_upperLeft.x() + vec.x();
+        float y = m_upperLeft.y() + vec.y();
+        m_upperLeft.setX(x);
+        m_upperLeft.setY(y);
+        return *this;
+    }
 } // namespace Core4

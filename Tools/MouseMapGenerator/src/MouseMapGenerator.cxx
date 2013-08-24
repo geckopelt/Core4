@@ -52,10 +52,11 @@ void writeMouseMap(const std::string & filename, size_t width, size_t height, co
     const size_t MaxPerLine(8);
     size_t perLine(0);
     dest << "// Auto-generated, do not edit" << std::endl;
+    std::vector<IsoDirection>::const_iterator last = (--directions.end()); 
     for (std::vector<IsoDirection>::const_iterator it = directions.begin(); it != directions.end(); it++)
     {
         dest << directionToString(*it);
-        if (it != (--directions.end()))
+        if (it != last)
         {
             dest << ", ";
         }
@@ -86,7 +87,7 @@ IsoDirection fromColor(const Color & color)
     else if (Color::White == color)
         direction = UnknownDirection;
     else
-        throw std::logic_error("Unknown color found");
+        throw std::invalid_argument("Unknown color found");
     return direction;
 }
 
@@ -97,11 +98,11 @@ std::vector<IsoDirection> createMouseMap(const std::string & filename, size_t & 
     ImageManipulator im(data, width, height);
 
     std::vector<IsoDirection> mouseMap;
-    mouseMap.reserve(width * height);
+    mouseMap.resize(width * height);
     for (size_t y = 0; y < im.getHeight(); y++)
     for (size_t x = 0; x < im.getWidth(); x++)
     {
-        mouseMap.push_back(fromColor(im.getPixel(x, y)));
+        mouseMap[y * width + x] = fromColor(im.getPixel(x, y));
     }
     return mouseMap;
 }

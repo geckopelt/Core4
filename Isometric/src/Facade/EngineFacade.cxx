@@ -7,6 +7,9 @@
 #include "Debug/DebugRenderingUtils.hxx"
 #include "Render/Primitive.hxx"
 #include "Tiles/TileBasics.hxx"
+#include "Light/Light.hxx"
+
+// TODO: move engine facade to another project (Engine)
 
 namespace Core4
 {
@@ -33,11 +36,40 @@ namespace Core4
             cell.setFloorTile(SpriteManager::getSingleton().getSpriteKey("Tiles.DesertTile1"));
         }
 
+        Point pos(8, 10);
+        for (int i = 0; i < 8; i++)
+        {
+            Point n = TileBasics::getNeighbourCell(pos, (IsoDirection)i);
+            LocationMapCell & cell = m_testMap.getCell(n);
+            cell.setFloorTile(SpriteManager::getSingleton().getSpriteKey("Tiles.Grass"));
+        }
+
+        for (int i = 0; i < m_testMap.getWidth() - 1; i++)
+        for (int j = 0; j < m_testMap.getHeight() - 1; j++)
+        {
+            LocationMapNode & node = m_testMap.getNode(Point(i, j));
+            
+            float nodeHeight = (float)(rand() % 6);
+            unsigned char randColor = rand() % 16;
+
+            node.setHeight(nodeHeight);
+            node.setColor(Color(32 + nodeHeight * 8 + randColor, 32 + nodeHeight * 8 + randColor, 32 + nodeHeight * 8 + randColor, 255));
+        }
+
+        m_testMap.setAmbientLight(Color(64, 64, 64, 0));
+
+        Light light;
+        light.setComponents(255, 255, 255, 0);
+        light.setRange(200);
+        light.setMapPos(Vector2(320.f, 200.f));
+        light.enable(true);
+        m_testMap.addLight(light);
+
         LocationMapCell & cell = m_testMap.getCell(Point(8, 6));
         cell.blockMovement(true);
 
         // TMP
-        m_mapRenderer.init(m_renderSystem, Vector2(640.0f, 480.0f));
+        m_mapRenderer.init(m_renderSystem, Vector2(800.0f, 600.0f));
         m_mapRenderer.setLocationMap(&m_testMap);
     }
  
@@ -50,24 +82,15 @@ namespace Core4
             m_testMap.update(dt);
             m_mapRenderer.render();
 
-            // TMP
-            Primitive mouseCursorStub;
-            Primitive::Line line;
-            line.start.x = m_mousePos.x();
-            line.start.y = m_mousePos.y();
-            line.end.x = line.start.x + 16;
-            line.end.y = line.start.y + 16;
-            line.start.color = line.end.color = Color::White;
-            mouseCursorStub.addLine(line);
-            mouseCursorStub.draw(m_renderSystem);
-
             Primitive cellCursor;
-            Point tilePos = m_mouseMap.screenToTile(m_mousePos, m_mapRenderer);
+            Point tilePos = m_mouseMap.screenToTile(m_mousePos, m_mapRenderer.getScrollPos());
             Vector2 screenPos = TileBasics::getTileScreenPos(tilePos);
-            DebugRenderingUtils::addTileBordersPrimitive(screenPos, Color::Blue, cellCursor);
-            cellCursor.draw(m_renderSystem);
+            DebugRenderingUtils::addTileBordersPrimitive(screenPos, Color::Yellow, cellCursor);
 
-            m_renderSystem->render();
+            // TMP
+            DebugRenderingUtils::addTileBordersPrimitive(m_mousePos, Color::Red, cellCursor);
+
+            cellCursor.draw(m_renderSystem);
         }
     }
 

@@ -1,3 +1,4 @@
+#include <windowsx.h>
 #include <algorithm>
 #include "Utils/Singleton.hxx"
 #include "Utils/Guards.hxx"
@@ -76,7 +77,7 @@ namespace
                 break;
 
             case WM_MOUSEMOVE:
-                input.onMouseMove(Vector2(LOWORD(lParam), HIWORD(lParam)));
+                input.onMouseMove(Vector2((float)GET_X_LPARAM(lParam), (float)GET_Y_LPARAM(lParam)));
                 break; 
 
             default:
@@ -132,6 +133,10 @@ HWND createWindow(HINSTANCE instance)
                                instance,
                                NULL);
     CORE4_CHECK(NULL != hwnd, "Could not create app window");
+    
+    // TMP
+    ::ShowCursor(TRUE);
+
     return hwnd;
 }
 

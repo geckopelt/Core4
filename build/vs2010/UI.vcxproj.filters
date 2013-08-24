@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{2ecba8ee-eeeb-4473-8ceb-4663117b1cca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{c0bdc322-e5f4-4518-bfca-2d2e414730aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\UI">
+      <UniqueIdentifier>{27ffcc44-1dd2-4667-bf95-4393a1dda236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI">
+      <UniqueIdentifier>{20d12afc-7d0a-4e5f-8ace-5987d0eb5147}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\UI\include\UI\Widget.hxx">
+      <Filter>include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\UI.hxx">
+      <Filter>include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\UserInterfacePrimitives.hxx">
+      <Filter>include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font.hxx">
+      <Filter>include\UI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\UI\src\UI\Widget.cxx">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\UI.cxx">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\UserInterfacePrimitives.cxx">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

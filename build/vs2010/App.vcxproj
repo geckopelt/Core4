@@ -70,14 +70,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);C4_APP_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;$(CORE4_ROOT)\Common\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include;$(CORE4_ROOT)\Isometric\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Input\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;$(CORE4_ROOT)\Common\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include;$(CORE4_ROOT)\Isometric\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Input\include;$(CORE4_ROOT)\UI\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;Render.lib;Isometric.lib;TinyXML.lib;Input.lib;zdll.lib;winmm.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Common.lib;Render.lib;Isometric.lib;TinyXML.lib;Input.lib;UI.lib;zdll.lib;winmm.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -89,7 +89,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);C4_APP_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;$(CORE4_ROOT)\Common\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include;$(CORE4_ROOT)\Isometric\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Input\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)\App\include;$(CORE4_ROOT)\Common\include;%(AdditionalIncludeDirectories);$(CORE4_ROOT)\Render\include;$(CORE4_ROOT)\Isometric\include;$(CORE4_3DPARTY)\TinyXML\include;$(CORE4_ROOT)\Input\include;$(CORE4_ROOT)\UI\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -98,7 +98,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Common.lib;Render.lib;Isometric.lib;TinyXML.lib;Input.lib;zdll.lib;winmm.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Common.lib;Render.lib;Isometric.lib;TinyXML.lib;Input.lib;UI.lib;zdll.lib;winmm.lib;d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>

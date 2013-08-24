@@ -56,11 +56,14 @@ namespace Core4
         /// Does this sprite have a texture?
         /// @return Yes/No.
         bool hasTexture() const;
+
+        /// Get texture pointer.
+        /// @return Texture pointer.
+        ITexture * getTexture() const;
     protected:
         friend class SpriteManager;
         friend class LocationRenderer;
 
-        ITexture * getTexture() const;
         void setTexture(ITexture * texture);
     private:
         typedef std::vector<SpriteFrame> FrameList;

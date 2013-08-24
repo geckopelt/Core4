@@ -329,6 +329,7 @@ namespace Core4
 	    drawQuad(quad, texture, sprite.alpha);
     }
 
+    //------------------------------------------------------------------------------
     void Direct3DRender::drawLine(const PrimitivePoint & start, const PrimitivePoint & end)
     {
         DWORD startColor = D3DCOLOR_RGBA(start.color.red(), start.color.green(), start.color.blue(), start.color.alpha());
