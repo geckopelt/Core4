@@ -10,41 +10,19 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\UI\include\UI\Font\Font.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\Font\FontChar.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\Font\FontCommon.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\Font\FontInfo.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\Font\FontKerningInfo.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\Font\FontPages.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\Font\FontParser.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\UI.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\UserInterfacePrimitives.hxx" />
-    <ClInclude Include="..\..\UI\include\UI\Widget.hxx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\UI\src\UI\Font\FontChar.cxx" />
-    <ClCompile Include="..\..\UI\src\UI\Font\FontCommon.cxx" />
-    <ClCompile Include="..\..\UI\src\UI\Font\FontInfo.cxx" />
-    <ClCompile Include="..\..\UI\src\UI\Font\FontKerningInfo.cxx" />
-    <ClCompile Include="..\..\UI\src\UI\Font\FontParser.cxx" />
-    <ClCompile Include="..\..\UI\src\UI\UI.cxx" />
-    <ClCompile Include="..\..\UI\src\UI\UserInterfacePrimitives.cxx" />
-    <ClCompile Include="..\..\UI\src\UI\Widget.cxx" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F043AA97-2CE9-4BA5-AD9D-65A9673BACB1}</ProjectGuid>
+    <ProjectGuid>{B3B1DC90-601A-4469-ACB5-FC6025E915F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>UI</RootNamespace>
+    <RootNamespace>UITests</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
@@ -60,11 +38,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(CORE4_DEST_BIN)\$(Configuration)\</OutDir>
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(CORE4_DEST_LIB)\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(CORE4_DEST_BIN)\$(Configuration)\</OutDir>
     <IntDir>$(CORE4_DEST_TEMP)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -73,14 +53,19 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_3DPARTY)/TinyXML/include;$(IncludePath);$(CORE4_ROOT)/UI/include;$(CORE4_ROOT)/Input/include;$(CORE4_ROOT)/Isometric/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_3DPARTY)/TinyXML/include;$(IncludePath);$(CORE4_ROOT)/UI/include;$(CORE4_ROOT)/Input/include;$(CORE4_ROOT)/Isometric/include;$(CORE4_3DPARTY)\CppUnit\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;Render.lib;UI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(TargetPath)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -90,17 +75,28 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_3DPARTY)/TinyXML/include;$(IncludePath);$(CORE4_ROOT)/UI/include;$(CORE4_ROOT)/Input/include;$(CORE4_ROOT)/Isometric/include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(CORE4_ROOT)/Common/include;$(CORE4_ROOT)/Render/include;$(CORE4_3DPARTY)/TinyXML/include;$(IncludePath);$(CORE4_ROOT)/UI/include;$(CORE4_ROOT)/Input/include;$(CORE4_ROOT)/Isometric/include;$(CORE4_3DPARTY)\CppUnit\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(CORE4_DEST_LIB)\$(ConfigurationName);$(CORE4_3DPARTY)\CppUnit\lib\$(ConfigurationName);$(CORE4_3DPARTY)\TinyXML\lib\$(ConfigurationName);$(CORE4_3DPARTY)\zlib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;CppUnit.lib;TinyXML.lib;zdll.lib;Render.lib;UI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(TargetPath)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Tests\UI\UITests.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Tests\UI\FontParserTests.hxx" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

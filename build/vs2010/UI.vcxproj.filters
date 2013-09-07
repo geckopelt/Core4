@@ -13,6 +13,12 @@
     <Filter Include="src\UI">
       <UniqueIdentifier>{20d12afc-7d0a-4e5f-8ace-5987d0eb5147}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\UI\Font">
+      <UniqueIdentifier>{c8bb6ab4-5487-4b9f-a7cd-c5f2aadeb30d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI\Font">
+      <UniqueIdentifier>{5279ed4e-0acf-4969-8513-e283e0e8dbed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\UI\include\UI\Widget.hxx">
@@ -24,8 +30,26 @@
     <ClInclude Include="..\..\UI\include\UI\UserInterfacePrimitives.hxx">
       <Filter>include\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\UI\include\UI\Font.hxx">
-      <Filter>include\UI</Filter>
+    <ClInclude Include="..\..\UI\include\UI\Font\FontParser.hxx">
+      <Filter>include\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font\FontKerningInfo.hxx">
+      <Filter>include\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font\FontInfo.hxx">
+      <Filter>include\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font\Font.hxx">
+      <Filter>include\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font\FontCommon.hxx">
+      <Filter>include\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font\FontPages.hxx">
+      <Filter>include\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font\FontChar.hxx">
+      <Filter>include\UI\Font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +61,21 @@
     </ClCompile>
     <ClCompile Include="..\..\UI\src\UI\UserInterfacePrimitives.cxx">
       <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\Font\FontParser.cxx">
+      <Filter>src\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\Font\FontKerningInfo.cxx">
+      <Filter>src\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\Font\FontInfo.cxx">
+      <Filter>src\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\Font\FontCommon.cxx">
+      <Filter>src\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\Font\FontChar.cxx">
+      <Filter>src\UI\Font</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
