@@ -4,6 +4,8 @@
 /// @file FontKerningInfo.hxx
 /// @brief Font kerning info
 
+// TODO: wchar_t is no good here.
+
 #include <map>
 
 namespace Core4
