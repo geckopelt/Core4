@@ -81,4 +81,27 @@ namespace Core4
         fontInfo.setSpacing(Vector2(spacingX, spacingY));
         return fontInfo;
     }
+
+    //--------------------------------------------------------------------------------------------
+    FontCommon FontParser::parseCommonInfo(const std::string & str)
+    {
+        return FontCommon();
+    }
+
+    //--------------------------------------------------------------------------------------------
+    FontChar FontParser::parseChar(const std::string & str)
+    {
+        return FontChar();
+    }
+
+    //--------------------------------------------------------------------------------------------
+    FontKerningInfo FontParser::parseKerning(const std::string & str)
+    {
+        return FontKerningInfo();
+    }
+
+    //--------------------------------------------------------------------------------------------
+    void FontParser::parsePage(const std::string & str, size_t & pageNumber, std::string & textureName)
+    {
+    }
 }
