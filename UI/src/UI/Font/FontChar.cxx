@@ -44,6 +44,18 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------
+    void FontChar::setOffset(const Vector2 & offset)
+    {
+        m_offset = offset;
+    }
+
+    //--------------------------------------------------------------------------------------------
+    const Vector2 & FontChar::getOffset() const
+    {
+        return m_offset;
+    }
+
+    //--------------------------------------------------------------------------------------------
     void FontChar::setPageNumber(size_t pageNumber)
     {
         m_pageNumber = pageNumber;

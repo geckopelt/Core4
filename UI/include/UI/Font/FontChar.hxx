@@ -40,6 +40,14 @@ namespace Core4
         /// @return Advance value, in position.
         float getAdvanceX() const;
 
+        /// Set character offset.
+        /// @param offset Offset, in pixels.
+        void setOffset(const Vector2 & offset);
+
+        /// Get character offset.
+        /// @return Offset, in pixels.
+        const Vector2 & getOffset() const;
+
         /// Set page number.
         /// @param pageNumber Page number.
         void setPageNumber(size_t pageNumber);

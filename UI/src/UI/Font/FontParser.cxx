@@ -95,9 +95,8 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------
-    FontKerningInfo FontParser::parseKerning(const std::string & str)
+    void FontParser::parseKerning(const std::string & str, wchar_t & left, wchar_t & right, float & kerning)
     {
-        return FontKerningInfo();
     }
 
     //--------------------------------------------------------------------------------------------

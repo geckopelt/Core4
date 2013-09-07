@@ -12,7 +12,7 @@ class FontParserTests : public CppUnit::TestFixture
         CPPUNIT_TEST(fontCharParseTest);
         CPPUNIT_TEST(fontKerningParseTest);
         CPPUNIT_TEST(fontPageParseTest);
-
+        CPPUNIT_TEST(complexFontParserTest);
     CPPUNIT_TEST_SUITE_END();
 
     void simpleLineTest()
@@ -39,30 +39,55 @@ class FontParserTests : public CppUnit::TestFixture
 
     void fontCommonInfoParseTest()
     {
-        const std::string common("common lineHeight=32");
-        // FontCommon common
+        const std::string commonDesc("common lineHeight=32");
+        FontCommon common = FontParser::parseCommonInfo(commonDesc);
+        CPPUNIT_ASSERT(common.getLineHeight() == 32.f);
     }
 
     void fontCharParseTest()
     {
-        const std::string charDesc("char id=32   x=21    y=57    width=3     height=1     xoffset=-1    yoffset=31    xadvance=8     page=0  chnl=15");
+        const std::string charDesc("char id=32   x=21    y=57    width=3     height=1     xoffset=-1    yoffset=31    xadvance=8     page=3  chnl=15");
+        FontChar c = FontParser::parseChar(charDesc);
+        CPPUNIT_ASSERT(c.getChar() == 32);
+
+        const Rect & rect = c.getRect();
+        CPPUNIT_ASSERT(rect.getUpperLeft().x() == 21.f);
+        CPPUNIT_ASSERT(rect.getUpperLeft().y() == 57.f);
+        CPPUNIT_ASSERT(rect.getSize().x() == 3.f);
+        CPPUNIT_ASSERT(rect.getSize().y() == 1.f);
+        
+        CPPUNIT_ASSERT(c.getOffset().x() == -1.f);
+        CPPUNIT_ASSERT(c.getOffset().y() == 31.f);
+        CPPUNIT_ASSERT(c.getAdvanceX() == 8.f);
+        CPPUNIT_ASSERT(c.getPageNumber() == 3);
     }
 
     void fontKerningParseTest()
     {
         const std::string kerningDesc("kerning first=87  second=117 amount=-1");
+        wchar_t left(0), right(0);
+        float kerning(0);
+        FontParser::parseKerning(kerningDesc, left, right, kerning);
+        CPPUNIT_ASSERT(left == 87);
+        CPPUNIT_ASSERT(right == 117);
+        CPPUNIT_ASSERT(kerning == -1.f);
     }
 
     void fontPageParseTest()
     {
-        const std::string page("page id=0 file=\"TestFont_0.tga\"");
+        const std::string page("page id=1 file=\"foo.tga\"");
+        size_t pageNumber(0);
+        std::string textureName;
+        FontParser::parsePage(page, pageNumber, textureName);
+        CPPUNIT_ASSERT(pageNumber == 1);
+        CPPUNIT_ASSERT(textureName == "foo.tga");
     }
 
-    // TODO
-    // FontCommon FontParser::parseCommonInfo(const std::string & str)
-    // FontChar FontParser::parseChar(const std::string & str)
-    // FontKerningInfo FontParser::parseKerning(const std::string & str)
-    // void FontParser::parsePage(const std::string & str, size_t & pageNumber, std::string & textureName)
+    void complexFontParserTest()
+    {
+        // TODO
+        CPPUNIT_ASSERT(false);
+    }
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(FontParserTests);

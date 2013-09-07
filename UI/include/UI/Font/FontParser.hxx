@@ -37,8 +37,10 @@ namespace Core4
 
         /// Parse font kerning info.
         /// @param str Font kerning info string.
-        /// @return Font kerning info.
-        static FontKerningInfo parseKerning(const std::string & str);
+        /// @param (out) left Left character.
+        /// @param (out) right Right character.
+        /// @param (out) kerning Kerning, in pixels.
+        static void parseKerning(const std::string & str, wchar_t & left, wchar_t & right, float & kerning);
 
         /// Parse font page info.
         /// @param str Font page info string.
