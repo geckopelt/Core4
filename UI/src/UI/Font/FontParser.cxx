@@ -152,4 +152,9 @@ namespace Core4
         TypeConverters::fromString(getOption(options, "id"), pageNumber);
         TypeConverters::fromString(getOption(options, "file"), textureName);
     }
+
+    //--------------------------------------------------------------------------------------------
+    void FontParser::parseFont(const std::string & filename, Font & font)
+    {
+    }
 }

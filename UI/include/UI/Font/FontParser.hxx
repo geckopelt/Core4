@@ -48,8 +48,11 @@ namespace Core4
         /// @param textureName (out) texture name.
         static void parsePage(const std::string & str, size_t & pageNumber, std::string & textureName);
 
-        // TODO: parse whole font
-        // static Font parseFont(const std::string & 
+        /// Parse complete font.
+        /// TODO: switch to filesystem abstraction instead.
+        /// @param filename Font filename.
+        /// @param font (out) Parsed font.
+        static void parseFont(const std::string & filename, Font & font); 
     };
 } // namespace Core4
 
