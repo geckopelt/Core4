@@ -77,5 +77,8 @@
     <ClCompile Include="..\..\UI\src\UI\Font\FontChar.cxx">
       <Filter>src\UI\Font</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\Font\Font.cxx">
+      <Filter>src\UI\Font</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

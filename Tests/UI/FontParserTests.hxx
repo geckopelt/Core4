@@ -3,6 +3,8 @@
 #include <string>
 #include "UI/Font/FontParser.hxx"
 
+#define TEST_DATA_FOLDER "../../Tests/UI/TestData/"
+
 class FontParserTests : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(FontParserTests);
@@ -30,7 +32,7 @@ class FontParserTests : public CppUnit::TestFixture
     void fontInfoParseTest()
     {
         const std::string fontInfo("info face=\"Arial\" size=32 bold=0 italic=0 charset=\"\" unicode=1 aa spacing=1,2 outline=0");
-        FontInfo info = FontParser::parseFontInfo(fontInfo);
+        FontInfo info = FontParser::parseFontInfo(parseOptions(fontInfo));
         CPPUNIT_ASSERT(info.getFace() == "Arial");
         CPPUNIT_ASSERT(info.getSize() == 32);
         CPPUNIT_ASSERT(info.getSpacing().x() == 1);
@@ -40,14 +42,14 @@ class FontParserTests : public CppUnit::TestFixture
     void fontCommonInfoParseTest()
     {
         const std::string commonDesc("common lineHeight=32");
-        FontCommon common = FontParser::parseCommonInfo(commonDesc);
+        FontCommon common = FontParser::parseCommonInfo(parseOptions(commonDesc));
         CPPUNIT_ASSERT(common.getLineHeight() == 32.f);
     }
 
     void fontCharParseTest()
     {
         const std::string charDesc("char id=32   x=21    y=57    width=3     height=1     xoffset=-1    yoffset=31    xadvance=8     page=3  chnl=15");
-        FontChar c = FontParser::parseChar(charDesc);
+        FontChar c = FontParser::parseChar(parseOptions(charDesc));
         CPPUNIT_ASSERT(c.getChar() == 32);
 
         const Rect & rect = c.getRect();
@@ -67,7 +69,7 @@ class FontParserTests : public CppUnit::TestFixture
         const std::string kerningDesc("kerning first=87  second=117 amount=-1");
         wchar_t left(0), right(0);
         float kerning(0);
-        FontParser::parseKerning(kerningDesc, left, right, kerning);
+        FontParser::parseKerning(parseOptions(kerningDesc), left, right, kerning);
         CPPUNIT_ASSERT(left == 87);
         CPPUNIT_ASSERT(right == 117);
         CPPUNIT_ASSERT(kerning == -1.f);
@@ -78,15 +80,37 @@ class FontParserTests : public CppUnit::TestFixture
         const std::string page("page id=1 file=\"foo.tga\"");
         size_t pageNumber(0);
         std::string textureName;
-        FontParser::parsePage(page, pageNumber, textureName);
+        FontParser::parsePage(parseOptions(page), pageNumber, textureName);
         CPPUNIT_ASSERT(pageNumber == 1);
         CPPUNIT_ASSERT(textureName == "foo.tga");
     }
 
     void complexFontParserTest()
     {
-        // TODO
-        CPPUNIT_ASSERT(false);
+        const std::string fontFile(std::string(TEST_DATA_FOLDER) + "TestFont.fnt");
+        Font font = FontParser::parseFont(fontFile);
+
+        const FontInfo & info = font.getInfo();
+        const FontCommon & common = font.getCommon();
+        const FontPages & pages = font.getPages();
+        const Font::FontChars & chars = font.getChars();
+        const FontKerningInfo & kerning = font.getKerningInfo();
+
+        CPPUNIT_ASSERT(info.getFace() == "Arial");
+        CPPUNIT_ASSERT(info.getSize() == 32);
+        CPPUNIT_ASSERT(info.getSpacing().x() == 1.f);
+        CPPUNIT_ASSERT(info.getSpacing().y() == 1.f);
+
+        CPPUNIT_ASSERT(common.getLineHeight() == 32.f);
+
+        CPPUNIT_ASSERT(pages.size() == 3);
+        CPPUNIT_ASSERT(chars.size() == 527);
+        CPPUNIT_ASSERT(kerning.getKerningsCount() == 91);
+    }
+
+    FontParser::FontOptions parseOptions(const std::string & options)
+    {
+        return FontParser::parseFontOptionsLine(options, std::string());
     }
 };
 

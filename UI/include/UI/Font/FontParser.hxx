@@ -22,37 +22,38 @@ namespace Core4
         static FontOptions parseFontOptionsLine(const std::string & str, std::string & tagName);
 
         /// Parse font info
-        /// @param str Font info string
-        static FontInfo parseFontInfo(const std::string & str);
+        /// @param options Font options to parse
+        /// @return Font info
+        static FontInfo parseFontInfo(const FontOptions & options);
 
         /// Parse common font info section.
-        /// @param str Font commons string.
+        /// @param options Font options to parse
         /// @return Common font info.
-        static FontCommon parseCommonInfo(const std::string & str);
+        static FontCommon parseCommonInfo(const FontOptions & options);
 
         /// Parse font char info.
-        /// @param str Font char info string.
+        /// @param options Font options to parse
         /// @return Font char info.
-        static FontChar parseChar(const std::string & str);
+        static FontChar parseChar(const FontOptions & options);
 
         /// Parse font kerning info.
-        /// @param str Font kerning info string.
+        /// @param options Font options to parse
         /// @param (out) left Left character.
         /// @param (out) right Right character.
         /// @param (out) kerning Kerning, in pixels.
-        static void parseKerning(const std::string & str, wchar_t & left, wchar_t & right, float & kerning);
+        static void parseKerning(const FontOptions & options, wchar_t & left, wchar_t & right, float & kerning);
 
         /// Parse font page info.
-        /// @param str Font page info string.
+        /// @param options Font options to parse
         /// @param pageNumber (out) page number.
         /// @param textureName (out) texture name.
-        static void parsePage(const std::string & str, size_t & pageNumber, std::string & textureName);
+        static void parsePage(const FontOptions & options, size_t & pageNumber, std::string & textureName);
 
         /// Parse complete font.
         /// TODO: switch to filesystem abstraction instead.
         /// @param filename Font filename.
-        /// @param font (out) Parsed font.
-        static void parseFont(const std::string & filename, Font & font); 
+        /// @return Font 
+        static Font parseFont(const std::string & filename); 
     };
 } // namespace Core4
 

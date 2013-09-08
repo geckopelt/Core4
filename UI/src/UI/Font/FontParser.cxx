@@ -1,6 +1,9 @@
 #include <algorithm>
+#include <fstream>
+#include <iostream>
 #include "Utils/Guards.hxx"
 #include "Utils/StringUtils.hxx"
+#include "Logging/LogHelpers.hxx"
 #include "Serialization/TypeConverters.hxx"
 #include "UI/Font/FontParser.hxx"
 
@@ -22,15 +25,16 @@ namespace
 
 namespace Core4
 {
-    // TODO: pass FontOptions from complex parser!
-
     //--------------------------------------------------------------------------------------------
     FontParser::FontOptions FontParser::parseFontOptionsLine(const std::string & str, std::string & tagName)
     {
         std::vector<std::string> parts;
         StringUtils::splitString(str, " ", parts);
 
-        CORE4_CHECK(!parts.empty(), "Can't parse \"" + str + "\"");
+        tagName.clear();
+        if (parts.empty())
+            return FontParser::FontOptions();
+
         tagName = parts[0];
 
         FontParser::FontOptions options;
@@ -57,11 +61,8 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------
-    FontInfo FontParser::parseFontInfo(const std::string & str)
+    FontInfo FontParser::parseFontInfo(const FontOptions & options)
     {
-        std::string tagName;
-        FontOptions options = parseFontOptionsLine(str, tagName);
-
         FontInfo fontInfo;
         fontInfo.setFace(getOption(options, "face"));
         
@@ -84,10 +85,9 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------
-    FontCommon FontParser::parseCommonInfo(const std::string & str)
+    FontCommon FontParser::parseCommonInfo(const FontOptions & options)
     {
         std::string tagName;
-        FontOptions options = parseFontOptionsLine(str, tagName);
 
         float lineHeight(0);
         TypeConverters::fromString(getOption(options, "lineHeight"), lineHeight);
@@ -99,10 +99,9 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------
-    FontChar FontParser::parseChar(const std::string & str)
+    FontChar FontParser::parseChar(const FontOptions & options)
     {
         FontChar fc;
-        FontOptions options = parseFontOptionsLine(str, std::string());
 
         size_t id(0);
         TypeConverters::fromString(getOption(options, "id"), id);
@@ -130,10 +129,8 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------
-    void FontParser::parseKerning(const std::string & str, wchar_t & left, wchar_t & right, float & kerning)
+    void FontParser::parseKerning(const FontOptions & options, wchar_t & left, wchar_t & right, float & kerning)
     {
-        FontOptions options = parseFontOptionsLine(str, std::string());
-        
         // TODO: So crappy. We need a better string-to-something converter.
         size_t first(0), second(0);
         TypeConverters::fromString(getOption(options, "first"), first);
@@ -145,16 +142,60 @@ namespace Core4
     }
 
     //--------------------------------------------------------------------------------------------
-    void FontParser::parsePage(const std::string & str, size_t & pageNumber, std::string & textureName)
+    void FontParser::parsePage(const FontOptions & options, size_t & pageNumber, std::string & textureName)
     {   
-        std::string tagName;
-        FontOptions options = parseFontOptionsLine(str, tagName);
         TypeConverters::fromString(getOption(options, "id"), pageNumber);
         TypeConverters::fromString(getOption(options, "file"), textureName);
     }
 
     //--------------------------------------------------------------------------------------------
-    void FontParser::parseFont(const std::string & filename, Font & font)
+    Font FontParser::parseFont(const std::string & filename)
     {
+        CORE4_LOG_SECTION("Loading font: \"" + filename + "\"");
+        Font font;
+        std::ifstream f(filename);
+        CORE4_CHECK(f.is_open(), "Can't open \"" + filename + "\"");
+        while (f.good())
+        {
+            std::string line;
+            std::getline(f, line);
+
+            std::string tagName;
+            FontParser::FontOptions options = parseFontOptionsLine(line, tagName); 
+        
+            if (tagName == "info")
+            {
+                font.m_info = parseFontInfo(options);
+            }
+            else
+            if (tagName == "common")
+            {
+                font.m_common = parseCommonInfo(options);
+            }
+            else
+            if (tagName == "char")
+            {
+                FontChar fc = parseChar(options);
+                font.m_chars[fc.getChar()] = fc;
+            }
+            else
+            if (tagName == "kerning")
+            {
+                wchar_t left(0), right(0);
+                float kerning(0);
+                parseKerning(options, left, right, kerning);
+                font.m_kerning.addKerningInfo(left, right, kerning);
+            }
+            else
+            if (tagName == "page")
+            {
+                std::string textureName;
+                size_t pageNumber(0);
+                parsePage(options, pageNumber, textureName);
+                font.m_pages[pageNumber] = textureName;
+            }
+        }
+        f.close();
+        return font;
     }
 }

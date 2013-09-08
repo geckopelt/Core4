@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\UI\include\UI\Widget.hxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\UI\src\UI\Font\Font.cxx" />
     <ClCompile Include="..\..\UI\src\UI\Font\FontChar.cxx" />
     <ClCompile Include="..\..\UI\src\UI\Font\FontCommon.cxx" />
     <ClCompile Include="..\..\UI\src\UI\Font\FontInfo.cxx" />

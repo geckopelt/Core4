@@ -16,8 +16,25 @@ namespace Core4
     /// Bitmap font class.
     class Font
     {
-    private:
+    public:
         typedef std::map<wchar_t, FontChar> FontChars;
+
+        /// Get font info.
+        const FontInfo & getInfo() const;
+
+        /// Get font common info.
+        const FontCommon & getCommon() const;
+
+        /// Get font pages.
+        const FontPages & getPages() const;
+
+        /// Get font chars.
+        const FontChars & getChars() const;
+
+        /// Get font kerning info.
+        const FontKerningInfo & getKerningInfo() const;
+    protected:
+        friend struct FontParser;
 
         FontInfo        m_info;
         FontCommon      m_common;

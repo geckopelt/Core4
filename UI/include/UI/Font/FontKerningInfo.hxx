@@ -13,6 +13,10 @@ namespace Core4
     /// Font kerning info
     class FontKerningInfo
     {
+    public:
+        /// Ctor.
+        FontKerningInfo();
+
         /// Add kerning info.
         /// @param left Left character
         /// @param right Right character
@@ -30,6 +34,7 @@ namespace Core4
     private:
         typedef std::map<wchar_t, float> CharacterKernings;
         typedef std::map<wchar_t, CharacterKernings > Kernings;
+        size_t   m_kerningCount;
         Kernings m_kernings;
     };
 } // namespace Core4

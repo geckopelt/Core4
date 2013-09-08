@@ -3,6 +3,11 @@
 namespace Core4
 {
     //--------------------------------------------------------------------------------------------
+    FontKerningInfo::FontKerningInfo() : m_kerningCount(0)
+    {
+    }
+
+    //--------------------------------------------------------------------------------------------
     void FontKerningInfo::addKerningInfo(wchar_t left, wchar_t right, float amount)
     {
         Kernings::iterator it = m_kernings.find(left);
@@ -17,12 +22,13 @@ namespace Core4
             kernings[right]  = amount;
             m_kernings[left] = kernings; 
         }
+        m_kerningCount++;
     }
 
     //--------------------------------------------------------------------------------------------
     size_t FontKerningInfo::getKerningsCount() const
     {
-        return m_kernings.size();
+        return m_kerningCount;
     }
 
     //--------------------------------------------------------------------------------------------
