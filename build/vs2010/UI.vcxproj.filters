@@ -51,6 +51,9 @@
     <ClInclude Include="..\..\UI\include\UI\Font\FontChar.hxx">
       <Filter>include\UI\Font</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\UI\include\UI\Font\FontManager.hxx">
+      <Filter>include\UI\Font</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\UI\src\UI\Widget.cxx">
@@ -78,6 +81,9 @@
       <Filter>src\UI\Font</Filter>
     </ClCompile>
     <ClCompile Include="..\..\UI\src\UI\Font\Font.cxx">
+      <Filter>src\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\UI\src\UI\Font\FontManager.cxx">
       <Filter>src\UI\Font</Filter>
     </ClCompile>
   </ItemGroup>

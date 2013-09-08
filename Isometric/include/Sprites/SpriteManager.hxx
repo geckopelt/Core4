@@ -10,6 +10,8 @@
 #include "Sprites/ISpriteManager.hxx"
 #include "Sprites/Sprite.hxx"
 
+// TODO: use resources root!
+
 namespace Core4
 {
     /// Sprite manager.

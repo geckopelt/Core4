@@ -151,7 +151,7 @@ namespace Core4
     //--------------------------------------------------------------------------------------------
     Font FontParser::parseFont(const std::string & filename)
     {
-        CORE4_LOG_SECTION("Loading font: \"" + filename + "\"");
+        CORE4_LOG_SECTION("Loading font: \"" + filename + "\""); // TODO: output more logging information
         Font font;
         std::ifstream f(filename);
         CORE4_CHECK(f.is_open(), "Can't open \"" + filename + "\"");

@@ -38,14 +38,14 @@ namespace Core4
         /// @param pos Screen position, in pixels.
         /// @param color Color.
         /// @param text Text.
-        static void renderSimpleText(IRenderSystem * renderSystem, const Vector2 & pos, const Color & color, const std::wstring & text);
+        static void renderSimpleText(IRenderSystem * renderSystem, const Vector2 & pos, const Color & color, const std::string & fontName, const std::wstring & text);
 
         /// Render a text box.
         /// @param renderSystem Render system to use.
         /// @param rect Rectangular area to contain the text.
         /// @param color Color.
         /// @param text Text.
-        static void renderText(IRenderSystem * renderSystem, const Rect & rect, const Color & color, const std::wstring & text);
+        static void renderText(IRenderSystem * renderSystem, const Rect & rect, const Color & color, const std::string & fontName, const std::wstring & text);
 
         /// Render a button.
         /// @param renderSystem Render system to use.

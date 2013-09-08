@@ -24,7 +24,9 @@
     <ClCompile Include="..\..\App\src\win32\WinMain.cxx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\App\data\sprites\SpriteList.xml" />
+    <None Include="..\..\App\data\sprites\SpriteList.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A3E00DAA-6248-465D-9023-3E843E6D5636}</ProjectGuid>

@@ -35,6 +35,14 @@ namespace Core4
         /// @return Log file pathname.
         const std::string & getLogPath() const;
 
+        /// Get resources root folder.
+        /// @return resources root folder.
+        const std::string & getResourcesRoot() const;
+
+        /// Set resources root folder.
+        /// @param folder Root folder.
+        void setResourcesRoot(const std::string & folder);
+
         /// Check whether application is windowed.
         /// @return true if windowed.
         bool isWindowed() const;
@@ -66,5 +74,6 @@ namespace Core4
         std::string       m_logPath;
         size_t            m_bpp;
         bool              m_windowed;
+        std::string       m_resourcesRoot;
     };
 } // namespace Core4

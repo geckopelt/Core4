@@ -7,6 +7,7 @@
 #include "Logging/LogHelpers.hxx"
 #include "Render/TextureLoader.hxx"
 #include "Image/TargaLoader.hxx"
+#include "Configuration/Configuration.hxx"
 
 namespace Core4
 {
@@ -31,10 +32,12 @@ namespace Core4
         StringUtils::splitString(name, ".", parts);
         const std::string & extension = StringUtils::toLower(parts.at(parts.size() - 1));
 
+        const std::string texturesFolder(Configuration::getSingleton().getResourcesRoot() + "/textures/");
+
         std::auto_ptr<IImageLoader> loader(ImageLoaderFactory::getSingleton().create(extension));
         CORE4_CHECK(NULL != loader.get(), "Don't know how to load \"" + extension + "\" images");
         CORE4_LOG_INFO("Loading texture: \"" + name + "\"");
-        return loader->loadImage(name, width, height);
+        return loader->loadImage(texturesFolder + name, width, height);
     }
 } // namespace Core4
 

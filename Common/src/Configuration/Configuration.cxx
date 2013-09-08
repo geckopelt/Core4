@@ -8,6 +8,9 @@ namespace Core4
     {
         m_logPath = ".\\log.txt";
         m_appName = "Core4";
+
+        // TODO
+        m_resourcesRoot = "../../App/data/";
     }
 
     //------------------------------------------------------------------------------
@@ -75,5 +78,17 @@ namespace Core4
     void Configuration::setWindowed(bool windowed)
     {
         m_windowed = windowed;
+    }
+
+    //------------------------------------------------------------------------------
+    const std::string & Configuration::getResourcesRoot() const
+    {
+        return m_resourcesRoot;
+    }
+
+    //------------------------------------------------------------------------------
+    void Configuration::setResourcesRoot(const std::string & folder)
+    {
+        m_resourcesRoot = folder;
     }
 } // Core4

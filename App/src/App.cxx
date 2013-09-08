@@ -5,6 +5,7 @@
 #include "Serialization/Serializeable.hxx" // TODO: once again!
 #include "Render/Circle.hxx"
 #include "Facade/EngineFacade.hxx"
+#include "UI/Font/FontManager.hxx"
 #include "UI/UserInterfacePrimitives.hxx"
 
 namespace Core4
@@ -34,6 +35,10 @@ namespace Core4
             Configuration::getSingleton().isWindowed());
 
         EngineFacade::getSingleton().init(m_renderSystem);
+
+        // TMP!
+        FontManager::getSingleton().addFont("Outlined", "Outlined.fnt");
+        FontManager::getSingleton().addFont("Large", "LargeFont.fnt");
     }
 
     //------------------------------------------------------------------------------
@@ -60,6 +65,16 @@ namespace Core4
 
         rect.setUpperLeft(Vector2(400.f, 100.f));
         UserInterfacePrimitives::renderButton(m_renderSystem, rect, coolColor, L"A button", true);
+
+        // TMP
+        UserInterfacePrimitives::renderSimpleText(m_renderSystem, Vector2(100.f, 100.f), 
+            Color::White, "Outlined", L"This is your life, and it's ending one minute at a time");
+
+        UserInterfacePrimitives::renderSimpleText(m_renderSystem, Vector2(100.f, 131.f), 
+            Color::Red, "Outlined", L"Ïîïğîáóé ıòèõ âêóñíûõ ôğàíöóçñêèõ áóëîê, äà âûïåé ÷àş, %USERNAME%. 1234567890");
+
+        UserInterfacePrimitives::renderSimpleText(m_renderSystem, Vector2(10.f, 181.f), 
+            Color::White, "Large", L"Load Game, Save Game, Íàñòğîéêè");
 
         m_renderSystem->render();
     }

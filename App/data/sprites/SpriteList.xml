@@ -1,7 +1,7 @@
 <sprites>
     <category name="Tiles">
-        <simple name="DesertTile1" texture="../../App/data/images/tileset_desert.tga" x="0" y="0" width="64" height="32" alpha="no" />
-        <simple name="Grass" texture="../../App/data/images/grass.tga" x="0" y="0" width="64" height="32" alpha="no" />
+        <simple name="DesertTile1" texture="tileset_desert.tga" x="0" y="0" width="64" height="32" alpha="no" />
+        <simple name="Grass" texture="grass.tga" x="0" y="0" width="64" height="32" alpha="no" />
         <!-- TODO: make more grass tile sprites -->
     </category>
 </sprites>

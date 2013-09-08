@@ -25,8 +25,10 @@ namespace Core4
             size_t & height)
     {
         std::ifstream stream(name, std::ios_base::binary);
+        CORE4_CHECK(stream.is_open(), "Can't open file \"" + name + "\"");
 
         // TODO: more error handling!
+        // TODO: sometimes TGA seems to be not upside-down!
 
         TargaHeader header;
         stream.read((char*)&header, sizeof(TargaHeader));

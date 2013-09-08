@@ -1,6 +1,9 @@
 #include "Image/FakeImageLoader.hxx"
 #include "Render/Primitive.hxx"
 #include "UI/UserInterfacePrimitives.hxx"
+#include "UI/Font/FontManager.hxx"
+#include "Image/TargaLoader.hxx"
+#include "Configuration/Configuration.hxx"
 
 namespace Core4
 {
@@ -85,12 +88,72 @@ namespace Core4
     }
 
     //------------------------------------------------------------------------------
-    void UserInterfacePrimitives::renderSimpleText(IRenderSystem * renderSystem, const Vector2 & pos, const Color & color, const std::wstring & text)
+    void UserInterfacePrimitives::renderSimpleText(
+        IRenderSystem * renderSystem, 
+        const Vector2 & pos, 
+        const Color & color, 
+        const std::string & fontName, 
+        const std::wstring & text)
     {
+        // TODO: this code is experimental!
+
+        const wchar_t DefaultChar(L'?');
+
+        // TODO: optimize for texture switching
+        // TODO: refactor, pre-create sprite lists
+
+        const Font & font = FontManager::getSingleton().getFont(fontName);
+        const Font::FontChars & chars = font.getChars();
+        const FontPages & pages = font.getPages();
+        const FontKerningInfo & kerning = font.getKerningInfo();
+
+        // TODO: UGLY
+        TargaLoader loader;
+
+        // TMP: most stupid algorithm
+        Vector2 currentPos(pos);
+        for (size_t i = 0; i < text.size(); i++)
+        {
+            wchar_t currentChar = text.at(i);
+
+            Font::FontChars::const_iterator it = chars.find(currentChar);
+            if (it != chars.end())
+            {
+                const FontChar & c = it->second; 
+                size_t pageNumber = c.getPageNumber();
+                FontPages::const_iterator pagesIt = pages.find(pageNumber);
+                CORE4_CHECK(pagesIt != pages.end(), "Unknown font page number");
+
+                // TMP!!
+                const std::string & textureName = Configuration::getSingleton().getResourcesRoot() + "/textures/" + pagesIt->second;
+                ITexture * texture = renderSystem->getTexture(textureName, &loader);
+
+                const Vector2 & upperLeft = c.getRect().getUpperLeft();
+                const Vector2 & size = c.getRect().getSize();
+                const Vector2 & offset = c.getOffset();
+
+                IRenderSystem::Sprite sprite;
+                sprite.alpha = true;
+                sprite.bitmapX = upperLeft.x();
+                sprite.bitmapY = upperLeft.y();
+                sprite.width = size.x();
+                sprite.height = size.y();
+
+                for (size_t j = 0; j < IRenderSystem::NumCorners; j++)
+                {
+                    sprite.diffuse[j] = color;
+                }
+
+                float kerningAmount = (i < text.size() - 1) ? kerning.getKerning(currentChar, text.at(i + 1)) : 0.f;
+
+                renderSystem->drawSprite(currentPos.x() + offset.x(), currentPos.y() + offset.y(), sprite, texture);
+                currentPos.setX(currentPos.x() + c.getAdvanceX() + kerningAmount);
+            }
+        }
     }
 
     //------------------------------------------------------------------------------
-    void UserInterfacePrimitives::renderText(IRenderSystem * renderSystem, const Rect & rect, const Color & color, const std::wstring & text)
+    void UserInterfacePrimitives::renderText(IRenderSystem * renderSystem, const Rect & rect, const Color & color, const std::string & fontName, const std::wstring & text)
     {
     }
 

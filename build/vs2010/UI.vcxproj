@@ -16,6 +16,7 @@
     <ClInclude Include="..\..\UI\include\UI\Font\FontCommon.hxx" />
     <ClInclude Include="..\..\UI\include\UI\Font\FontInfo.hxx" />
     <ClInclude Include="..\..\UI\include\UI\Font\FontKerningInfo.hxx" />
+    <ClInclude Include="..\..\UI\include\UI\Font\FontManager.hxx" />
     <ClInclude Include="..\..\UI\include\UI\Font\FontPages.hxx" />
     <ClInclude Include="..\..\UI\include\UI\Font\FontParser.hxx" />
     <ClInclude Include="..\..\UI\include\UI\UI.hxx" />
@@ -28,6 +29,7 @@
     <ClCompile Include="..\..\UI\src\UI\Font\FontCommon.cxx" />
     <ClCompile Include="..\..\UI\src\UI\Font\FontInfo.cxx" />
     <ClCompile Include="..\..\UI\src\UI\Font\FontKerningInfo.cxx" />
+    <ClCompile Include="..\..\UI\src\UI\Font\FontManager.cxx" />
     <ClCompile Include="..\..\UI\src\UI\Font\FontParser.cxx" />
     <ClCompile Include="..\..\UI\src\UI\UI.cxx" />
     <ClCompile Include="..\..\UI\src\UI\UserInterfacePrimitives.cxx" />
