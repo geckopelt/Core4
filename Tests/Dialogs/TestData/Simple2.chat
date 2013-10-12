@@ -1,0 +1,15 @@
+// Another simple chat
+
+@start:
+
+Yet another simple chat.
+
+0) (Done) { end }
+1) Tell me more! { tell_more }
+
+@tell_more:
+
+1) Got nothing to tell ya! { end }
+
+
+@end:

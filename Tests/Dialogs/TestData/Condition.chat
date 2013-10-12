@@ -1,0 +1,12 @@
+@start:
+
+Hello!
+
+/* This dialog is 
+   for precondition tests 
+*/
+
+1) (Done) { end }
+2) [ player:dexterity > 8 ] Not so fast! { end }
+                                               
+@end:
